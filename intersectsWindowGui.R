@@ -115,10 +115,10 @@ updateButtonsState <- function(widget, a) {
 }
 
 on_addListButton_clicked <- function(widget) {
-	clist <- c()
+	clist <- row.names(baseData) 
 	for (i in 1:nbExperiments) {
-		if(buttonState[i, 1]) {clist = union(clist, genesUp[[i]])}
-		if(buttonState[i, 2]) {clist = union(clist, genesDown[[i]])}
+		if(buttonState[i, 1]) {clist = intersect(clist, genesUp[[i]])}
+		if(buttonState[i, 2]) {clist = intersect(clist, genesDown[[i]])}
 	}	
 	for (i in 1:nbExperiments) {
 		if(buttonState[i, 3]) {clist = setdiff(clist, genesUp[[i]])}

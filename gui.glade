@@ -653,8 +653,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="frame3">
+              <object class="GtkFrame" id="intersectFrame">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">False</property>
                 <property name="extension_events">cursor</property>
                 <property name="label_xalign">0</property>
