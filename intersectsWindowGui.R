@@ -11,6 +11,7 @@ pvalueSpinButton <- builder$getObject("pvalueSpinButton")
 intersectsStatusBar <- builder$getObject("intersectsStatusBar")
 option1RadioButton <- builder$getObject("option1RadioButton")
 option2RadioButton <- builder$getObject("option2RadioButton")
+option4RadioButton <- builder$getObject("option4RadioButton")
 nbGroupsSpinButton <- builder$getObject("nbGroupsSpinButton")
 customListsWindow <- builder$getObject("customListsWindow")
 listNameEntry  <- builder$getObject("listNameEntry")
@@ -88,27 +89,40 @@ on_createListsButton_clicked <- function(widget) {
 on_intersectsButton_clicked <- function(widget) {
 	isUpList <- NULL
 	isDownList  <- NULL
+	selectedGenes <- c()
 	for (i in 1:nbExperiments) {
-		vecUp <- row.names(baseData) %in% upGenes[[i]]
-		vecDown <- row.names(baseData) %in% downGenes[[i]]
+		vecUp <- row.names(baseData) %in% genesUp[[i]]
+		vecDown <- row.names(baseData) %in% genesDown[[i]]
 		isUpList <- cbind(isUpList, vecUp)
 		isDownList <- cbind(isDownList, vecDown)
 	}
 	if(option1RadioButton$getActive()) {
 		upList <- row.names(baseData)[sum(isUpList) >= 2]
 		downList <- row.names(baseData)[sum(isDownList) >=2]
+		selectedGenes <- union(upList, downList)
 	}
 	if(option2RadioButton$getActive()) {
 		x <- nbGroupsSpinButton$getValueAsInt()
 		upList <- row.names(baseData)[sum(isUpList) >= x]
 		downList <- row.names(baseData)[sum(isDownList) >=x]
+		selectedGenes <- union(upList, downList)
 	}
 	if(option3RadioButton$getActive()) {
 		upList <- row.names(baseData)[sum(isUpList) >= 2 & sum(isDownList) == 0]
 		downList <- row.names(baseData)[sum(isDownList) >=2 & sum(isDownList) == 0]
+		selectedGenes <- union(upList, downList)
 	}
-
-
+	if(option4RadioButton$getActive()) {
+		selectedGenes <- unique(unlist(customLists))
+	}
+	selectedData <<- baseData[names(baseData) %in% selectedGenes,] 
+	# We will no longer need the folds and p-values
+	columns <- c()
+	for(i in 1:nbExperiments) {
+		columns <- c(columns, i* (nbReplicats * 2 + 2) - 1, i*(nbReplicats*2+2))
+	}  
+	print(-columns)
+	selectedData <<- selectedData[, - columns]
 }
 
 on_customListsButton_clicked <- function(widget) {
