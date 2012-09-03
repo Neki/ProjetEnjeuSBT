@@ -73,8 +73,8 @@ on_createListsButton_clicked <- function(widget) {
 	intersectsStatusBar$push(intersectsStatusBar$getContextId("info"), "Creating lists...")
 	# Creating lists
 	for(i in 1:nbExperiments) {
-		folds <- baseData[i*(nbReplicats*2+2)-1]
-		pvalues <- baseData[i*(nbReplicats*2+2)]
+		folds <- baseData[i*(nbReplicats*2+2)]
+		pvalues <- baseData[i*(nbReplicats*2+2) + 1]
 		if (useUpperLimitButton$getActive()) {genesUp[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds > foldUpMin & folds < foldUpMax]} else {genesUp[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds > foldUpMin]} 
 		if (useLowerLimitButton$getActive()) {genesDown[[i]] <<- row.names(baseData)[pvalues < pvalMax & folds > foldDownMin & folds < foldDownMax]} else {genesDown[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds < foldDownMax]}
 	}
@@ -119,9 +119,8 @@ on_intersectsButton_clicked <- function(widget) {
 	# We will no longer need the folds and p-values
 	columns <- c()
 	for(i in 1:nbExperiments) {
-		columns <- c(columns, i* (nbReplicats * 2 + 2) - 1, i*(nbReplicats*2+2))
+		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
 	}  
-	print(-columns)
 	selectedData <<- selectedData[, - columns]
 }
 

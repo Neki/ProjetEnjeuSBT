@@ -22,6 +22,7 @@ buttonState <- c()
 customLists <- list()
 customListsNames <- c()
 selectedData <- data.frame()
+PCAdata <- NULL
 
 # Creating a global GtkBuilder from which we will be able to retrieve the necesary GUI elements later
 builder <- gtkBuilderNew()
