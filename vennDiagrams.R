@@ -12,35 +12,30 @@ drawVennDiagrams  <- function(widget = NULL) {
 	# Up
 	listUp <- list()
 	namesUp <- NULL 
+	colorsVec <-c("red", "green", "blue", "brown")
 	for (i in 1:length(checkBoxesList)) {
 		if(gtkToggleButtonGetActive(checkBoxesList[[i]])){
-		   listUp <- c(listUp, genesUp[[i]])
+		   listUp <- c(listUp, genesUp[i])
 		   if(length(genesUp[[i]] != 0 )) namesUp <- c(namesUp, i)
 		}
 	}
-	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)")
+	colorsVec <- colorsVec[1:length(checkBoxesList)] 
+	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)", col = colorsVec)
 	asCairoDevice(upDrawingArea)
-	vps <- baseViewports()
-	pushViewport(vps$inner, vps$figure, vps$plot)
 	grid.draw(res)
-	popViewport(3)
 
 	# Down
 	listDown <- list()
 	namesDown <- NULL 
 	for (i in 1:length(checkBoxesList)) {
 		if(gtkToggleButtonGetActive(checkBoxesList[[i]])){
-		   listDown <- c(listDown, genesDown[[i]])
+		   listDown <- c(listDown, genesDown[i])
 		   if(length(genesDown[[i]] != 0 )) namesDown <- c(namesDown, i)
 		}
 	}
-	print(namesDown)
-	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)")
+	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)", col = colorsVec)
 	asCairoDevice(downDrawingArea)
-	vps <- baseViewports()
-	pushViewport(vps$inner, vps$figure, vps$plot)
 	grid.draw(res)
-	popViewport(3)
 
 
 	#TODO : finish proper drawing
