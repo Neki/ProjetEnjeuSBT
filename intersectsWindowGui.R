@@ -97,25 +97,25 @@ on_intersectsButton_clicked <- function(widget) {
 		isDownList <- cbind(isDownList, vecDown)
 	}
 	if(option1RadioButton$getActive()) {
-		upList <- row.names(baseData)[sum(isUpList) >= 2]
-		downList <- row.names(baseData)[sum(isDownList) >=2]
+		upList <- row.names(baseData)[rowSums(isUpList) >= 2]
+		downList <- row.names(baseData)[rowSums(isDownList) >=2]
 		selectedGenes <- union(upList, downList)
 	}
 	if(option2RadioButton$getActive()) {
 		x <- nbGroupsSpinButton$getValueAsInt()
-		upList <- row.names(baseData)[sum(isUpList) >= x]
-		downList <- row.names(baseData)[sum(isDownList) >=x]
+		upList <- row.names(baseData)[rowSums(isUpList) >= x]
+		downList <- row.names(baseData)[rowSums(isDownList) >=x]
 		selectedGenes <- union(upList, downList)
 	}
 	if(option3RadioButton$getActive()) {
-		upList <- row.names(baseData)[sum(isUpList) >= 2 & sum(isDownList) == 0]
-		downList <- row.names(baseData)[sum(isDownList) >=2 & sum(isDownList) == 0]
+		upList <- row.names(baseData)[rowSums(isUpList) >= 2 & rowSums(isDownList) == 0]
+		downList <- row.names(baseData)[rowSums(isDownList) >=2 & rowSums(isDownList) == 0]
 		selectedGenes <- union(upList, downList)
 	}
 	if(option4RadioButton$getActive()) {
 		selectedGenes <- unique(unlist(customLists))
 	}
-	selectedData <<- baseData[names(baseData) %in% selectedGenes,] 
+	selectedData <<- baseData[row.names(baseData) %in% selectedGenes,] 
 	# We will no longer need the folds and p-values
 	columns <- c()
 	for(i in 1:nbExperiments) {
@@ -147,7 +147,7 @@ on_addListButton_clicked <- function(widget) {
 		if(buttonState[i, 3]) {clist = setdiff(clist, genesUp[[i]])}
 		if(buttonState[i, 4]) {clist = setdiff(clist, genesDown[[i]])}
 	}
-	customLists <<- c(customLists, clist)
+	customLists[[length(customLists)+1]] <<- clist
 	if(listNameEntry$getText() != "") {customListsNames <<- c(customListsNames, listNameEntry$getText())} else {customListsNames <<-c(customListsNames, 'custom list')}
 	model <- rGtkDataFrame(customListsNames)
 	view <- gtkTreeView(model)

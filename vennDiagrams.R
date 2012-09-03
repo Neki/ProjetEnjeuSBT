@@ -38,7 +38,6 @@ drawVennDiagrams  <- function(widget = NULL) {
 	grid.draw(res)
 
 
-	#TODO : finish proper drawing
 	#TODO : handle the case of empty upGenes or downGenes list
 
 }
