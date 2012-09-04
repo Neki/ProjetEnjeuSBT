@@ -47,8 +47,8 @@ on_nbReplicatsSpinButton_value_changed <- function(widget) {
 
 on_dataFileChooserButton_file_set<- function(widget) {
 	filename  <- dataFileChooserButton$getFilename()
-	loadFileStatusbar$push(loadFileStatusbar$getContextId("info"), paste("Loading ", filename, ", please wait...", dec=decCharacter, sep =""))
-	baseData <<- read.csv2(filename, header = TRUE, stringsAsFactors = FALSE, sep=sepCharacter, row.names=1)
+	loadFileStatusbar$push(loadFileStatusbar$getContextId("info"), paste("Loading ", filename, ", please wait...",  sep =""))
+	baseData <<- read.csv2(filename, header = TRUE, stringsAsFactors = FALSE, sep=sepCharacter, dec=decCharacter, row.names=1)
 	loadFileStatusbar$push(loadFileStatusbar$getContextId("info"), paste(filename, "successfully loaded."))
 	on_nbReplicatsSpinButton_value_changed(widget)
 }
@@ -63,7 +63,7 @@ on_confirmButton_clicked <- function(widget) {
 		# Configuring the next window according to the dataset
 		dataNameLabel$setText(paste("Data :", basename(dataFileChooserButton$getFilename())))
 		for (i in 1:nbExperiments) {
-		listsToDisplayVBox$packStart(gtkCheckButton(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), fill = FALSE)
+		listsToDisplayVBox$packStart(gtkCheckButton(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), fill = FALSE, expand=FALSE)
 		}
 		# checkBoxesList[[1]] is a GtkLabel !
 		checkBoxesList <- listsToDisplayVBox$getChildren()

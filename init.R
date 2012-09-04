@@ -1,7 +1,7 @@
 library(RGtk2)
 
 sepCharacter = ";"
-decCharacter = ","
+decCharacter = "."
 
 # Initializing global variables
 baseData <- NULL

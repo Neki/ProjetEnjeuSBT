@@ -19,6 +19,7 @@ tableAlignment <- builder$getObject("tableAlignment")
 optionTable <- builder$getObject("optionTable")
 listsScrolledWindow <- builder$getObject("listsScrolledWindow")
 intersectFrame <- builder$getObject("intersectFrame")
+PCAFrame <- builder$getObject("PCAFrame")
 
 # Creating callbacks
 
@@ -26,12 +27,14 @@ on_useUpperLimitButton_toggled <- function(widget) {
 	if(!useUpperLimitButton$getActive()) foldUpMaxSpinButton$setSensitive(FALSE)
 	if(useUpperLimitButton$getActive()) foldUpMaxSpinButton$setSensitive(TRUE)	
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 }
 
 on_useLowerLimitButton_toggled <- function(widget) {
 	if(!useLowerLimitButton$getActive()) foldDownMinSpinButton$setSensitive(FALSE)
 	if(useLowerLimitButton$getActive()) foldDownMinSpinButton$setSensitive(TRUE)	
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 
 }
 
@@ -40,6 +43,7 @@ on_foldUpMinSpinButton_value_changed <- function(widget) {
 	if(linkFoldLimitsCheckButton$getActive()) foldDownMaxSpinButton$setValue(-foldUpMin)
 	if(foldUpMaxSpinButton$getValue() < foldUpMin) foldUpMaxSpinButton$setValue(foldUpMin)
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 }
 
 on_foldUpMaxSpinButton_value_changed <- function(widget) {
@@ -47,6 +51,7 @@ on_foldUpMaxSpinButton_value_changed <- function(widget) {
 	if(linkFoldLimitsCheckButton$getActive()) foldDownMinSpinButton$setValue(-foldUpMax)
 	if(foldUpMax < foldUpMinSpinButton$getValue()) foldUpMinSpinButton$setValue(foldUpMax)
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 }
 
 
@@ -55,6 +60,7 @@ on_foldDownMinSpinButton_value_changed <- function(widget) {
 	if(linkFoldLimitsCheckButton$getActive()) foldUpMaxSpinButton$setValue(-foldDownMin)
 	if(foldDownMaxSpinButton$getValue() < foldDownMin) foldDownMaxSpinButton$setValue(foldDownMin)
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 }
 
 on_foldDownMaxSpinButton_value_changed <- function(widget) {
@@ -62,6 +68,7 @@ on_foldDownMaxSpinButton_value_changed <- function(widget) {
 	if(linkFoldLimitsCheckButton$getActive()) foldUpMinSpinButton$setValue(-foldDownMax)
 	if(foldDownMax < foldDownMinSpinButton$getValue()) foldDownMinSpinButton$setValue(foldDownMax)
 	intersectFrame$setSensitive(FALSE)
+	PCAFrame$setSensitive(FALSE)
 }
 
 on_pvalueSpinButton_value_changed <- function(widget) {
@@ -122,6 +129,9 @@ on_intersectsButton_clicked <- function(widget) {
 		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
 	}  
 	selectedData <<- selectedData[, - columns]
+	PCAFrame$setSensitive(TRUE)
+	computePCA()
+	drawPCA()
 }
 
 on_customListsButton_clicked <- function(widget) {
