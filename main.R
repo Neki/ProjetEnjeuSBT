@@ -1,4 +1,7 @@
 #setwd()
+source("loadPackages.R")
+source("config.R")
+source("deviceManager.R")
 source("init.R")
 source("vennDiagrams.R")
 source("loadWindowGui.R")

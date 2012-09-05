@@ -1,0 +1,2 @@
+decCharacter = "."
+sepCharacter = ";"

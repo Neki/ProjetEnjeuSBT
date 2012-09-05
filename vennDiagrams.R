@@ -1,7 +1,3 @@
-library(grid)
-library(VennDiagram)
-library(cairoDevice)
-library(gridBase)
 
 upDrawingArea <- builder$getObject("upDrawingArea") 
 downDrawingArea <- builder$getObject("downDrawingArea")
@@ -13,28 +9,33 @@ drawVennDiagrams  <- function(widget = NULL) {
 	listUp <- list()
 	namesUp <- NULL 
 	colorsVec <-c("red", "green", "blue", "brown")
+	usedColors <- c()
 	for (i in 1:length(checkBoxesList)) {
 		if(gtkToggleButtonGetActive(checkBoxesList[[i]])){
 		   listUp <- c(listUp, genesUp[i])
 		   if(length(genesUp[[i]] != 0 )) namesUp <- c(namesUp, i)
+		   usedColors <- c(usedColors,colorsVec[i])
 		}
 	}
-	colorsVec <- colorsVec[1:length(checkBoxesList)] 
-	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)", col = colorsVec)
-	asCairoDevice(upDrawingArea)
+	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)", col = usedColors, alpha = c(0.1), fill = usedColors)
+	changeCairoDevice(upDrawingArea)
+	grid.newpage()
 	grid.draw(res)
 
 	# Down
 	listDown <- list()
 	namesDown <- NULL 
+	usedColors <- c()
 	for (i in 1:length(checkBoxesList)) {
 		if(gtkToggleButtonGetActive(checkBoxesList[[i]])){
 		   listDown <- c(listDown, genesDown[i])
 		   if(length(genesDown[[i]] != 0 )) namesDown <- c(namesDown, i)
+		   usedColors <- c(usedColors,colorsVec[i])
 		}
 	}
-	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)", col = colorsVec)
-	asCairoDevice(downDrawingArea)
+	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)", col = usedColors, alpha = c(0.1), fill = usedColors)
+	changeCairoDevice(downDrawingArea)
+	grid.newpage()
 	grid.draw(res)
 
 

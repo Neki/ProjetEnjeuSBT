@@ -1,8 +1,3 @@
-library(RGtk2)
-
-sepCharacter = ";"
-decCharacter = "."
-
 # Initializing global variables
 baseData <- NULL
 dataFileOK <- FALSE
