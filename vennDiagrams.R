@@ -3,7 +3,8 @@ upDrawingArea <- builder$getObject("upDrawingArea")
 downDrawingArea <- builder$getObject("downDrawingArea")
 
 drawVennDiagrams  <- function(widget = NULL) {
-	checkBoxesList <- listsToDisplayVBox$getChildren()
+	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Drawing Venn diagrams...")
+	checkBoxesList <- widgets$listsToDisplayVBox$getChildren()
 	checkBoxesList[[1]] <- NULL
 	# Up
 	listUp <- list()
@@ -38,6 +39,7 @@ drawVennDiagrams  <- function(widget = NULL) {
 	grid.newpage()
 	grid.draw(res)
 
+	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Venn diagrams drawn.")
 
 	#TODO : handle the case of empty upGenes or downGenes list
 

@@ -1,45 +1,45 @@
-PCChooserHBox <- builder$getObject("PCChooserHBox")
-PCAArea  <- builder$getObject("PCAArea") # naming convention changed due to a glitch in Glade
-PCAArea2 <- builder$getObject("PCAArea2")
-
-PC1ComboBox <- gtkComboBoxNewText()
-PC2ComboBox <- gtkComboBoxNewText()
-PCChooserHBox$packStart(PC1ComboBox, FALSE)
-PCChooserHBox$reorderChild(PC1ComboBox, 1)
-PCChooserHBox$packStart(PC2ComboBox, FALSE)
-PCChooserHBox$reorderChild(PC2ComboBox, 3)
 
 computePCA <- function() {
 	PCAdata <<- prcomp(t(selectedData[,-1]), center = TRUE, scale = TRUE)
 	nbPC <- ncol(PCAdata$rotation)
 	# Emptying comboxes
-	treeModel <- PC1ComboBox$getModel()
+	gSignalHandlerDisconnect(widgets$PC1ComboBox, handlerID1)
+	gSignalHandlerDisconnect(widgets$PC2ComboBox, handlerID2)
+	treeModel <- widgets$PC1ComboBox$getModel()
 	treeModel$clear()
-	treeModel <- PC2ComboBox$getModel()
+	treeModel <- widgets$PC2ComboBox$getModel()
 	treeModel$clear()
 
 	for(i in 1:nbPC) {
-		PC1ComboBox$appendText(paste("PC", i, sep=""))
-		PC2ComboBox$appendText(paste("PC", i, sep=""))
+		widgets$PC1ComboBox$appendText(paste("PC", i, sep=""))
+		widgets$PC2ComboBox$appendText(paste("PC", i, sep=""))
 	}
-	PC1ComboBox$setActive(0)
-	PC2ComboBox$setActive(1)
+	widgets$PC1ComboBox$setActive(0)
+	widgets$PC2ComboBox$setActive(1)
+	handlerID1 <<- gSignalConnect(widgets$PC1ComboBox, "changed", drawPCA)
+	handlerID2 <<- gSignalConnect(widgets$PC2ComboBox, "changed", drawPCA)
 }
 
 drawPCA <- function(widget = NULL) {
-	changeCairoDevice(PCAArea)
-	par(mar=c(0,0,0,0))
-	plot(PCAdata$x[,PC1ComboBox$getActive()+1], PCAdata$x[,PC2ComboBox$getActive()+1], 
-	     xlab=PC1ComboBox$getActiveText(),
-	     ylab=PC2ComboBox$getActiveText(),
-	     mar=c(1,1,1,1),
-	     text(PCAdata$x[,PC1ComboBox$getActive()+1], PCAdata$x[,PC2ComboBox$getActive()+1], labels=names(selectedData[,-1]), cex=0.9, pos=4, col="black")
+	changeCairoDevice(widgets$PCAArea)
+	par(mar=c(2,2,0.2,0.2))
+	cols = c("cornflowerblue", "darkblue", "red", "deeppink3", "orange", "chocolate4", "darkorchid1", "darkmagenta", "darkseagreen", "darkslategrey")
+	colVec <- rep(cols, rep(nbReplicats, length(cols)))	
+	plot(PCAdata$x[,widgets$PC1ComboBox$getActive()+1], PCAdata$x[,widgets$PC2ComboBox$getActive()+1], 
+	     xlab=widgets$PC1ComboBox$getActiveText(),
+	     ylab=widgets$PC2ComboBox$getActiveText(),
+	     pch =16,
+	     cex = 0.9,
+	     cex.axes = 0.8,
+	     col = colVec
 	     )
-	changeCairoDevice(PCAArea2)
+	text(PCAdata$x[,widgets$PC1ComboBox$getActive()+1], PCAdata$x[,widgets$PC2ComboBox$getActive()+1], labels=names(selectedData[,-1]), cex=0.9, pos=4, col="black")
+	changeCairoDevice(widgets$PCAArea2)
 	biplot(PCAdata, pc.biplot=TRUE)
 }
 
-gSignalConnect(PC1ComboBox, "changed", drawPCA)
-gSignalConnect(PC2ComboBox, "changed", drawPCA)
+
+handlerID1 = gSignalConnect(widgets$PC1ComboBox, "changed", drawPCA)
+handlerID2 = gSignalConnect(widgets$PC2ComboBox, "changed", drawPCA)
 
 
