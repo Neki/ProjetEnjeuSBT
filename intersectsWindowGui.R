@@ -110,6 +110,7 @@ on_intersectsButton_clicked <- function(widget) {
 	widgets$PCAFrame$setSensitive(TRUE)
 	computePCA()
 	drawPCA()
+	drawClustering()
 }
 
 on_customListsButton_clicked <- function(widget) {

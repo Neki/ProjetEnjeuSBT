@@ -34,8 +34,11 @@ drawPCA <- function(widget = NULL) {
 	     col = colVec
 	     )
 	text(PCAdata$x[,widgets$PC1ComboBox$getActive()+1], PCAdata$x[,widgets$PC2ComboBox$getActive()+1], labels=names(selectedData[,-1]), cex=0.9, pos=4, col="black")
-	changeCairoDevice(widgets$PCAArea2)
-	biplot(PCAdata, pc.biplot=TRUE)
+#	changeCairoDevice(widgets$PCAArea2)
+#	biplot(PCAdata, pc.biplot=TRUE)
+	changeCairoDevice(widgets$eigenDrawingArea)
+	par(mar=c(0.2,2,1,1))
+	plot(PCAdata, main = NULL, xlab="")
 }
 
 

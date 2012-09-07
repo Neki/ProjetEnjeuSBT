@@ -59,9 +59,11 @@ widgets$intersectFrame <- builder$getObject("intersectFrame")
 widgets$PCAFrame <- builder$getObject("PCAFrame")
 widgets$PCChooserHBox <- builder$getObject("PCChooserHBox")
 widgets$PCAArea  <- builder$getObject("PCAArea") # naming convention changed due to a glitch in Glade
-widgets$PCAArea2 <- builder$getObject("PCAArea2")
+#widgets$PCAArea2 <- builder$getObject("PCAArea2")
 widgets$PCChooserHBox <- builder$getObject("PCChooserHBox")
 widgets$playwithButton <- builder$getObject("playwithButton")
+widgets$eigenDrawingArea <- builder$getObject("eigenDrawingArea")
+widgets$clusteringDrawingArea <- builder$getObject("clusteringDrawingArea")
 
 widgets$PC1ComboBox <- gtkComboBoxNewText()
 widgets$PC2ComboBox <- gtkComboBoxNewText()
