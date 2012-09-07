@@ -45,4 +45,3 @@ drawPCA <- function(widget = NULL) {
 handlerID1 = gSignalConnect(widgets$PC1ComboBox, "changed", drawPCA)
 handlerID2 = gSignalConnect(widgets$PC2ComboBox, "changed", drawPCA)
 
-

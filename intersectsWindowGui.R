@@ -108,6 +108,7 @@ on_intersectsButton_clicked <- function(widget) {
 	}  
 	selectedData <<- selectedData[, - columns]
 	widgets$PCAFrame$setSensitive(TRUE)
+	widgets$selectedGenesLabel$setText(paste(nrow(selectedData), "genes selected"))
 	computePCA()
 	drawPCA()
 	drawClustering()

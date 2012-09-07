@@ -50,7 +50,7 @@ on_confirmButton_clicked <- function(widget) {
 		widgets$fileInfoLabel$setText("Please set the number of replicats used.")
 	} else {
 		# Configuring the next window according to the dataset
-		widgets$dataNameLabel$setText(paste("Data :", basename(widgets$dataFileChooserButton$getFilename())))
+		widgets$dataButton$setLabel(paste("Data :", basename(widgets$dataFileChooserButton$getFilename())," (click to show details)" ))
 		for (i in 1:nbExperiments) {
 		widgets$listsToDisplayVBox$packStart(gtkCheckButton(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), fill = FALSE, expand=FALSE)
 		}
