@@ -18,6 +18,7 @@ customLists <- list()
 customListsNames <- c()
 selectedData <- data.frame()
 PCAdata <- NULL
+PCAinitialData <- NULL
 
 # Creating a global GtkBuilder from which we will be able to retrieve the necesary GUI elements 
 builder <- gtkBuilderNew()
@@ -64,7 +65,20 @@ widgets$playwithButton <- builder$getObject("playwithButton")
 widgets$eigenDrawingArea <- builder$getObject("eigenDrawingArea")
 widgets$clusteringDrawingArea <- builder$getObject("clusteringDrawingArea")
 widgets$selectedGenesLabel <- builder$getObject("selectedGenesLabel")
+widgets$fileNameLabel <- builder$getObject("fileNameLabel")
+widgets$locationLabel <- builder$getObject("locationLabel")
+widgets$genesInfoLabel <- builder$getObject("genesInfoLabel")
+widgets$expInfoLabel <- builder$getObject("expInfoLabel")
+widgets$samplesInfoLabel <- builder$getObject("samplesInfoLabel")
+widgets$repInfoLabel <- builder$getObject("repInfoLabel")
+widgets$samplesNamesLabel <- builder$getObject("samplesNamesLabel")
+widgets$dataPCChooserHBox <- builder$getObject("dataPCChooserHBox")
+widgets$PCADataArea <- builder$getObject("PCADataArea")
+widgets$datasetInformationWindow <- builder$getObject("datasetInformationWindow")
+widgets$eigenInitialDrawingArea <- builder$getObject("eigenInitialDrawingArea")
+widgets$clusteringInitialDrawingArea <- builder$getObject("clusteringInitialDrawingArea")
 
+# As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 widgets$PC1ComboBox <- gtkComboBoxNewText()
 widgets$PC2ComboBox <- gtkComboBoxNewText()
 widgets$PCChooserHBox$packStart(widgets$PC1ComboBox, FALSE)
@@ -72,3 +86,9 @@ widgets$PCChooserHBox$reorderChild(widgets$PC1ComboBox, 1)
 widgets$PCChooserHBox$packStart(widgets$PC2ComboBox, FALSE)
 widgets$PCChooserHBox$reorderChild(widgets$PC2ComboBox, 3)
 
+widgets$PC1DataComboBox <- gtkComboBoxNewText()
+widgets$PC2DataComboBox <- gtkComboBoxNewText()
+widgets$dataPCChooserHBox$packStart(widgets$PC1DataComboBox, FALSE)
+widgets$dataPCChooserHBox$reorderChild(widgets$PC1DataComboBox, 1)
+widgets$dataPCChooserHBox$packStart(widgets$PC2DataComboBox, FALSE)
+widgets$dataPCChooserHBox$reorderChild(widgets$PC2DataComboBox, 3)

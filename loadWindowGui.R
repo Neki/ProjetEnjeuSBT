@@ -50,7 +50,8 @@ on_confirmButton_clicked <- function(widget) {
 		widgets$fileInfoLabel$setText("Please set the number of replicats used.")
 	} else {
 		# Configuring the next window according to the dataset
-		widgets$dataButton$setLabel(paste("Data :", basename(widgets$dataFileChooserButton$getFilename())," (click to show details)" ))
+		# TODO : use separate function to do this !
+		widgets$dataButton$setLabel(paste("Data:", basename(widgets$dataFileChooserButton$getFilename())," (click to show details)" ))
 		for (i in 1:nbExperiments) {
 		widgets$listsToDisplayVBox$packStart(gtkCheckButton(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), fill = FALSE, expand=FALSE)
 		}
@@ -62,7 +63,7 @@ on_confirmButton_clicked <- function(widget) {
 			gSignalConnect(checkBoxesList[[i+1]], "toggled", drawVennDiagrams)
 		}
 		widgets$option3RadioButton$setSensitive(nbExperiments==3)  
-		widgets$loadFileWindow$destroy()
+		widgets$loadFileWindow$hide()
 		widgets$intersectsWindow$show()
 		# Configuring custom lists window according to dataset
 		# gtkTableGetChildren() returns a list of objects which have for only type "GtkTableChild" so it is not possible to retrieve the state of the GtkCheckButtons
@@ -84,6 +85,8 @@ on_confirmButton_clicked <- function(widget) {
                 	widgets$optionTable$attachDefaults(button, 4, 5, i+1, i+2)
         	}
 		buttonState <<- array(FALSE, c(nbExperiments, 4))
+		# Configuring data information window
+		configureDataInformation()
 	}
 }
 # Connecting signals
