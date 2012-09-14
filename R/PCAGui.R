@@ -1,3 +1,4 @@
+#' @include deviceManager.R
 
 computePCA <- function(mydata) {
 	return(prcomp(t(mydata), center = TRUE, scale = TRUE))
@@ -21,6 +22,7 @@ handlePCAComboBoxes <- function(nbPC, PC1ComboBox, PC2ComboBox) {
 	# handlerID1 <<- gSignalConnect(PC1ComboBox, "changed", drawPCA)
 	# handlerID2 <<- gSignalConnect(PC2ComboBox, "changed", drawPCA)
 }
+
 drawPCA <- function(widget = NULL, PC1, PC2, PCdata, Veclabels, drawingArea) { 
 	if(PC1 < 1 | PC2 < 1) return(FALSE)
 	changeCairoDevice(drawingArea)
@@ -46,6 +48,8 @@ drawEigenValues <- function(widget, PCdata, drawingArea) {
 	return(TRUE)
 }
 
+# Below are functions which are only wrappers for drawPCA
+# They are used as callbacks
 updatePCA <- function(widget) {
 	 drawPCA(widget, widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
 }

@@ -1,3 +1,6 @@
+#' @include PCAGui.R
+#' @include clustering.R
+
 on_dataButton_clicked <- function(widget) {
 	columns <- c()
         for(i in 1:nbExperiments) {

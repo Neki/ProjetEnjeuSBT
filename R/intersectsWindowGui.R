@@ -1,5 +1,8 @@
-# Creating callbacks
+#' @include vennDiagrams.R
+#' @include PCAGui.R
+#' @include clustering.R
 
+# Creating callbacks
 on_useUpperLimitButton_toggled <- function(widget) {
 	if(!widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(FALSE)
 	if(widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(TRUE)	

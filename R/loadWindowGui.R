@@ -1,7 +1,4 @@
-
-csvFilter <- gtkFileFilterNew()
-csvFilter$addPattern("*.csv")
-widgets$dataFileChooserButton$setFilter(csvFilter)
+#' @include init.R
 
 # Creating callbacks
 on_nbReplicatsSpinButton_value_changed <- function(widget) {

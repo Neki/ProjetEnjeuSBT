@@ -1,7 +1,4 @@
 
-upDrawingArea <- builder$getObject("upDrawingArea") 
-downDrawingArea <- builder$getObject("downDrawingArea")
-
 drawVennDiagrams  <- function(widget = NULL) {
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Drawing Venn diagrams...")
 	checkBoxesList <- widgets$listsToDisplayVBox$getChildren()
@@ -19,7 +16,7 @@ drawVennDiagrams  <- function(widget = NULL) {
 		}
 	}
 	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)", col = usedColors, alpha = c(0.1), fill = usedColors)
-	changeCairoDevice(upDrawingArea)
+	changeCairoDevice(widgets$upDrawingArea)
 	grid.newpage()
 	grid.draw(res)
 
@@ -35,7 +32,7 @@ drawVennDiagrams  <- function(widget = NULL) {
 		}
 	}
 	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)", col = usedColors, alpha = c(0.1), fill = usedColors)
-	changeCairoDevice(downDrawingArea)
+	changeCairoDevice(widgets$downDrawingArea)
 	grid.newpage()
 	grid.draw(res)
 
