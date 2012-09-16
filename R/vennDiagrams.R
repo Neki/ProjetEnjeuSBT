@@ -1,5 +1,13 @@
 
-drawVennDiagrams  <- function(widget = NULL) {
+#' Compute and draw Venn diagrams to a GtkDrawable or a file
+#' 
+#' This function uses global variables (#TODO : fix that) but does not write in global variables
+#' 
+#' @param widget used for callbacks, ignored
+#' @param fileUp if set to NULL, will draw the "up diagram" to widgets$upDrawingArea.
+#' Otherwise, fileUp must be a string indictaing the path where the diagram will be plotted 
+#' @param fileDown same principle for the "down diagram" 
+drawVennDiagrams  <- function(widget = NULL, fileUp = NULL, fileDown = NULL) {
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Drawing Venn diagrams...")
 	checkBoxesList <- widgets$listsToDisplayVBox$getChildren()
 	checkBoxesList[[1]] <- NULL
@@ -15,10 +23,12 @@ drawVennDiagrams  <- function(widget = NULL) {
 		   usedColors <- c(usedColors,colorsVec[i])
 		}
 	}
-	res <- venn.diagram(listUp, filename = NULL, category.names = namesUp,  main = "Venn diagram (up)", col = usedColors, alpha = c(0.1), fill = usedColors)
-	changeCairoDevice(widgets$upDrawingArea)
-	grid.newpage()
-	grid.draw(res)
+	res <- venn.diagram(listUp, filename = fileUp, category.names = namesUp,  main = "Venn diagram (up)", col = usedColors, alpha = c(0.1), fill = usedColors)
+	if(is.null(fileUp)) {
+		changeCairoDevice(widgets$upDrawingArea)
+		grid.newpage()
+		grid.draw()
+	}
 
 	# Down
 	listDown <- list()
@@ -31,10 +41,12 @@ drawVennDiagrams  <- function(widget = NULL) {
 		   usedColors <- c(usedColors,colorsVec[i])
 		}
 	}
-	res <- venn.diagram(listDown, filename = NULL, category.names = namesDown,  main = "Venn diagram (down)", col = usedColors, alpha = c(0.1), fill = usedColors)
-	changeCairoDevice(widgets$downDrawingArea)
-	grid.newpage()
-	grid.draw(res)
+	res <- venn.diagram(listDown, filename = fileDown, category.names = namesDown,  main = "Venn diagram (down)", col = usedColors, alpha = c(0.1), fill = usedColors)
+	if(is.null(fileDown)) {
+		changeCairoDevice(widgets$downDrawingArea)
+		grid.newpage()
+		grid.draw(res)
+	}
 
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Venn diagrams drawn.")
 

@@ -5,7 +5,7 @@
 #' 
 #' Create the following files :
 #' 
-#' @param saveFolder the path to the folder whcih will contain the results
+#' @param saveFolder the path to the folder which will contain the results
 saveResults <- function(saveFolder) {
 	
 }
