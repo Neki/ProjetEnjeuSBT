@@ -117,10 +117,10 @@ drawPCA <- function(widget = NULL, PCx, PCy, PCdata, Veclabels, drawingArea, pri
 #' @param PCdata an object of type \code{prcomp}
 #' @param drawingArea a GtkDrawable (usually a GtkDrawingArea) if \code{\link{plotTofile}} is set to \code{FALSE},
 #' otherwise the path to a file
-#' @param plotToFile a boolean. If set to \code{TRUE}, will plot to a file.
+#' @param printToFile a boolean. If set to \code{TRUE}, will plot to a file.
 #' @return always \code{TRUE}
 #' @seealso \code{\link{drawPCA}}
-drawEigenValues <- function(widget = NULL, PCdata, drawingArea, plotToFile = FALSE) {
+drawEigenValues <- function(widget = NULL, PCdata, drawingArea, printToFile = FALSE) {
 	if(printToFile) {
 		ext <- getExtension(drawingArea)
 		if(ext == "tiff") {

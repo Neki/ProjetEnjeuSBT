@@ -35,5 +35,8 @@ source("PCAGui.R")
 # Manage clusterings (including drawing)
 source("clustering.R")
 
+# Manage saves
+source("saveManager.R")
+
 # To be executed at the end ; actual launching of the main program loop
 source("end.R")

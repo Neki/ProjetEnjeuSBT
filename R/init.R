@@ -86,6 +86,7 @@ initWidgets <- function() {
 	widgets$clusteringInitialDrawingArea <- builder$getObject("clusteringInitialDrawingArea")
 	widgets$upDrawingArea <- builder$getObject("upDrawingArea") 
 	widgets$downDrawingArea <- builder$getObject("downDrawingArea")
+	widgets$saveFolderChooserButton <- builder$getObject("saveFolderChooserButton")
 	
 # As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 	widgets$PC1ComboBox <- gtkComboBoxNewText()
@@ -105,6 +106,8 @@ initWidgets <- function() {
 	csvFilter <- gtkFileFilterNew()
 	csvFilter$addPattern("*.csv")
 	widgets$dataFileChooserButton$setFilter(csvFilter)
+	
+	builder$connectSignals()
 	
 	return(widgets)
 }

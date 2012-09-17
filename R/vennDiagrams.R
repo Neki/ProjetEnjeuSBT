@@ -1,4 +1,3 @@
-
 #' Compute and draw Venn diagrams to a GtkDrawable or a file
 #' 
 #' This function uses global variables (#TODO : fix that) but does not write in global variables
@@ -27,7 +26,7 @@ drawVennDiagrams  <- function(widget = NULL, fileUp = NULL, fileDown = NULL) {
 	if(is.null(fileUp)) {
 		changeCairoDevice(widgets$upDrawingArea)
 		grid.newpage()
-		grid.draw()
+		grid.draw(res)
 	}
 
 	# Down
