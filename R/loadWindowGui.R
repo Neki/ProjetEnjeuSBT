@@ -33,6 +33,8 @@ on_nbReplicatsSpinButton_value_changed <- function(widget) {
 
 on_dataFileChooserButton_file_set<- function(widget) {
 	filename  <- widgets$dataFileChooserButton$getFilename()
+	sepCharacter <- widgets$colEntry$getText()
+	decCharacter <- widgets$decEntry$getText()
 	widgets$loadFileStatusbar$push(widgets$loadFileStatusbar$getContextId("info"), paste("Loading ", filename, ", please wait...",  sep =""))
 	baseData <<- read.csv2(filename, header = TRUE, stringsAsFactors = FALSE, sep=sepCharacter, dec=decCharacter, row.names=1)
 	widgets$loadFileStatusbar$push(widgets$loadFileStatusbar$getContextId("info"), paste(filename, "successfully loaded."))

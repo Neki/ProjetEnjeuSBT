@@ -7,9 +7,6 @@ setwd("/home/benoit/workspace/ProjetEnjeuSBT/R")
 # Load required packages
 source("loadPackages.R")
 
-# Set variables used to configure the software
-source("config.R")
-
 # Create three utility functions to manage drawing on GtkDrawingArea using Cairo
 source("deviceManager.R")
 

@@ -40,6 +40,9 @@ initWidgets <- function() {
 	widgets$nbReplicatsSpinButton <- builder$getObject("nbReplicatsSpinButton")
 	widgets$fileInfoLabel <- builder$getObject("fileInfoLabel")
 	widgets$dataFileChooserButton <- builder$getObject("dataFileChooserButton")
+	widgets$decEntry <- builder$getObject("decEntry")
+	widgets$colEntry <- builder$getObject("colEntry")	
+	
 	widgets$intersectsWindow <- builder$getObject("intersectsWindow")
 	widgets$dataButton <- builder$getObject("dataButton")
 	widgets$listsToDisplayVBox <- builder$getObject("listsToDisplayVBox")
