@@ -16,6 +16,22 @@ NULL
 #' @include init.R
 NULL
 
+# Notes on the code
+#
+# This code does not separate the model (which is mainly represented 
+# by global variables) from the controler (callbacks) from the view (RGtk2 GUI)
+# If this app was to grow, it would be necessary to refactor the code.
+# 
+# Global variables are used extensively throughout the code. The environment "widgets" created
+# in init.R, function initWidgets(), contain widgets and is accessible at any point in the program.
+# Other global variables are created in init.R, function init()
+# When reading the code, you can assume that any function can read any global variable and read/write
+# any widget state.
+# If a function writes in a global variable, this *should* be documented.
+#
+# Most "include" Roxygen tags are not really necesssary, but they facilitate reading the code 
+# by indicating where functions used in a file are defined.
+
 #' Launch the genes selector GUI
 #' 
 #' This function start a new Graphical User Interface for the genes selector. Make sure you have not 
