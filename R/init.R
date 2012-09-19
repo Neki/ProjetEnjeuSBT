@@ -1,8 +1,4 @@
 
-
-# Creating a global widget environment which will contain our widgets
-# TODO
-
 init <- function() {
 
 # Initializing global variables
@@ -32,7 +28,8 @@ initWidgets <- function() {
 	
 	# Creating a GtkBuilder from which we will be able to retrieve the necesary GUI elements 
 	builder <- gtkBuilderNew()
-	builder$addFromFile("../inst/extdata/gui.glade")
+	
+	builder$addFromFile(file.path(path.package("genesSelector"), "extdata/gui.glade") )
 	
 	widgets <- new.env()
 	widgets$loadFileWindow <- builder$getObject("loadFileWindow")

@@ -58,7 +58,7 @@ changeCairoDevice <- function(mydevice) {
 #' Warning : this also delete the GtkDrawable.
 #' 
 #' @param mydevice a GtkDrawable used as a device (the function \code{\link{changeCairoDevice}} or
-#' \code{\link{registerCarioDevice} should have been used on the GtkDrawable before).
+#' \code{\link{registerCairoDevice}} should have been used on the GtkDrawable before).
 #' @seealso \code{\link{registerCairoDevice}} \code{\link{changeCairoDevice}}
 deleteCairoDevice <- function(mydevice) {
 	if(!is.null(gObjectGetData(mydevice, "device.number"))) dev.off(gObjectGetData(mydevice, "device.number"))
@@ -69,9 +69,11 @@ deleteCairoDevice <- function(mydevice) {
 #' @param path the path to a file, or a file name 
 #' @return the extension of the file pointed by \code{path}. The leading dot is not included in
 #' the result (see examples) so the extension of "example.tiff" is "tiff" (and not ".tiff").
-#' @examples 
+#' @examples
+#' \dontrun{
 #' getExtension("/home/name/image.tiff")
 #' getExtension("example.jpg")
+#' }
 getExtension <- function(path) {
 	parts <- strsplit(path, "\\.")[[1]]
 	last <- parts[length(parts)]

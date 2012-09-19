@@ -6,8 +6,7 @@
     drawingArea, printToFile = FALSE)
 }
 \arguments{
-  \item{widget}{used for callbacks (now ignored) #TODO :
-  remove this parameter}
+  \item{widget}{used for callbacks (now ignored)}
 
   \item{PCx}{the number of the principal component (as an
   integer) which will be the x coordinate of points}
@@ -15,7 +14,7 @@
   \item{PCy}{the number of the principal component (as an
   integer) which will be the y coordinate of points}
 
-  \item{PCdata}{an object of type \code{\prcomp}}}
+  \item{PCdata}{an object of type \code{prcomp}}
 
   \item{Veclabels}{a vector of strings containing the
   points labels}

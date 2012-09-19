@@ -17,7 +17,9 @@
   Return the extension of a file
 }
 \examples{
+\dontrun{
 getExtension("/home/name/image.tiff")
 getExtension("example.jpg")
+}
 }
 

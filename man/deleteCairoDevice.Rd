@@ -7,8 +7,8 @@
 \arguments{
   \item{mydevice}{a GtkDrawable used as a device (the
   function \code{\link{changeCairoDevice}} or
-  \code{\link{registerCarioDevice} should have been used on
-  the GtkDrawable before).}
+  \code{\link{registerCairoDevice}} should have been used
+  on the GtkDrawable before).}
 }
 \description{
   Warning : this also delete the GtkDrawable.

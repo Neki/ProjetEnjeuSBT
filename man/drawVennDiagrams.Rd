@@ -10,7 +10,7 @@
 
   \item{fileUp}{if set to NULL, will draw the "up diagram"
   to widgets$upDrawingArea. Otherwise, fileUp must be a
-  string indictaing the path where the diagram will be
+  string indicating the path where the diagram will be
   plotted}
 
   \item{fileDown}{same principle for the "down diagram"}

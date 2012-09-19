@@ -47,10 +47,10 @@ handlePCAComboBoxes <- function(nbPC, PC1ComboBox, PC2ComboBox) {
 #' This function supports .tiff and .svg extensions when plotting to a file. If another extension is given
 #' this function will raise an error.
 #' 
-#' @param widget used for callbacks (now ignored) #TODO : remove this parameter
+#' @param widget used for callbacks (now ignored)
 #' @param PCx the number of the principal component (as an integer) which will be the x coordinate of points
 #' @param PCy the number of the principal component (as an integer) which will be the y coordinate of points
-#' @param PCdata an object of type \code{\prcomp}}
+#' @param PCdata an object of type \code{prcomp}
 #' @param Veclabels a vector of strings containing the points labels
 #' @param drawingArea a GtkDrawable (usually a GtkDrawingArea) if printToFile is set to \code{FALSE}, a string indicating the path of the file to create otherwise.
 #' @param printToFile a boolean. If set to \code{FALSE}, this function will plot to the GtkDrawable \code{drawingArea}. If set to \code{TRUE}
@@ -113,9 +113,9 @@ drawPCA <- function(widget = NULL, PCx, PCy, PCdata, Veclabels, drawingArea, pri
 #' This function supports .tiff and .svg extensions when plotting to a file. If another extension is given
 #' this function will raise an error.
 #' 
-#' @param widget used for callbacks, ignored #TODO : remove this parameter
+#' @param widget used for callbacks, ignored
 #' @param PCdata an object of type \code{prcomp}
-#' @param drawingArea a GtkDrawable (usually a GtkDrawingArea) if \code{\link{plotTofile}} is set to \code{FALSE},
+#' @param drawingArea a GtkDrawable (usually a GtkDrawingArea) if \code{printTofile} is set to \code{FALSE},
 #' otherwise the path to a file
 #' @param printToFile a boolean. If set to \code{TRUE}, will plot to a file.
 #' @return always \code{TRUE}

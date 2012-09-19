@@ -1,6 +1,6 @@
 #' @include init.R
 
-# Creating callbacks
+# Side effects : writing in nbGenes, nbReplicats, nbExperiments, dataFileOK
 on_nbReplicatsSpinButton_value_changed <- function(widget) {
 	if (!is.null(baseData)) {
 		nbGenes <<- nrow(baseData)
@@ -31,6 +31,7 @@ on_nbReplicatsSpinButton_value_changed <- function(widget) {
 
 }
 
+# Side effect : writing in baseData
 on_dataFileChooserButton_file_set<- function(widget) {
 	filename  <- widgets$dataFileChooserButton$getFilename()
 	sepCharacter <- widgets$colEntry$getText()
@@ -88,8 +89,3 @@ on_confirmButton_clicked <- function(widget) {
 		configureDataInformation()
 	}
 }
-# Connecting signals
-# builder$connectSignals()
-
-# Displaying the GUI
-# widgets$loadFileWindow$show()

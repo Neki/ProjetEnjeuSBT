@@ -4,7 +4,7 @@
 #' 
 #' @param widget used for callbacks, ignored
 #' @param fileUp if set to NULL, will draw the "up diagram" to widgets$upDrawingArea.
-#' Otherwise, fileUp must be a string indictaing the path where the diagram will be plotted 
+#' Otherwise, fileUp must be a string indicating the path where the diagram will be plotted 
 #' @param fileDown same principle for the "down diagram" 
 drawVennDiagrams  <- function(widget = NULL, fileUp = NULL, fileDown = NULL) {
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Drawing Venn diagrams...")

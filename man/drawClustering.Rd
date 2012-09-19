@@ -6,6 +6,8 @@
     printToFile = FALSE)
 }
 \arguments{
+  \item{widget}{used for callbacks, ignored}
+
   \item{mydata}{the data frame (or matrix) containing the
   data to work on. Columns are variables and rows are
   individuals.}

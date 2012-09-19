@@ -1,14 +1,13 @@
-Package: GenesSelector
-Version: 1
+Package: genesSelector
+Version: 1.0
 Date: 2012-09-23
 Title: A GUI to facilitate gene selection based on p-value and folds criteria
     from DNA chip experiments
-Authors@R: c(person("Benoît Faucon, "Developer", role = c("aut", "cre", "ctb"),
+Authors@R: c(person("Benoit Faucon", "Developer", role = c("aut", "cre", "ctb"),
     email = "faucon.benoit@cegetel.net"))
-Author: Benoît Faucon
-Maintainer: Benoît Faucon
+Author: Benoit Faucon
+Maintainer: Benoit Faucon <faucon.benoit@cegetel.net>
 Imports:
-    R (>= 2.14.0),
     RGtk2,
     VennDiagram,
     cairoDevice
@@ -17,15 +16,11 @@ License: GPL (>= 2)
 Collate:
     'deviceManager.R'
     'clustering.R'
-    'config.R'
     'PCAGui.R'
     'dataDetailsGUI.R'
-    'init.R'
-    'end.R'
     'vennDiagrams.R'
     'intersectsWindowGui.R'
-    'loadPackages.R'
+    'init.R'
     'loadWindowGui.R'
-    'main.R'
-    'test.R'
     'saveManager.R'
+    'main.R'

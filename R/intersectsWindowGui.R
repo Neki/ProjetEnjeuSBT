@@ -18,6 +18,7 @@ on_useLowerLimitButton_toggled <- function(widget) {
 
 }
 
+# Side effect : write in foldUpMin
 on_foldUpMinSpinButton_value_changed <- function(widget) {
 	foldUpMin <<- widgets$foldUpMinSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldDownMaxSpinButton$setValue(-foldUpMin)
@@ -26,6 +27,7 @@ on_foldUpMinSpinButton_value_changed <- function(widget) {
 	widgets$PCAFrame$setSensitive(FALSE)
 }
 
+# Side effect : write in foldUpMax
 on_foldUpMaxSpinButton_value_changed <- function(widget) {
 	foldUpMax <<- widgets$foldUpMaxSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldDownMinSpinButton$setValue(-foldUpMax)
@@ -34,7 +36,7 @@ on_foldUpMaxSpinButton_value_changed <- function(widget) {
 	widgets$PCAFrame$setSensitive(FALSE)
 }
 
-
+# Side effect : write in foldDownMin
 on_foldDownMinSpinButton_value_changed <- function(widget) {
 	foldDownMin <<- widgets$foldDownMinSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldUpMaxSpinButton$setValue(-foldDownMin)
@@ -43,6 +45,7 @@ on_foldDownMinSpinButton_value_changed <- function(widget) {
 	widgets$PCAFrame$setSensitive(FALSE)
 }
 
+# Side effect : write in foldDownMax
 on_foldDownMaxSpinButton_value_changed <- function(widget) {
 	foldDownMax <<- widgets$foldDownMaxSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldUpMinSpinButton$setValue(-foldDownMax)
@@ -51,11 +54,13 @@ on_foldDownMaxSpinButton_value_changed <- function(widget) {
 	widgets$PCAFrame$setSensitive(FALSE)
 }
 
+# Side effect : write in pvalMax
 on_pvalueSpinButton_value_changed <- function(widget) {
 	widgets$intersectFrame$setSensitive(FALSE)
 	pvalMax  <<- widgets$pvalueSpinButton$getValue()
 }
 
+# Side effect : write in genesUp and genesDown
 on_createListsButton_clicked <- function(widget) {
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Creating lists...")
 	# Creating lists
@@ -74,6 +79,7 @@ on_createListsButton_clicked <- function(widget) {
 	
 }
 
+# Side effect : write in selectedData and PCAdata
 on_intersectsButton_clicked <- function(widget) {
 	isUpList <- NULL
 	isDownList  <- NULL
@@ -133,6 +139,7 @@ updateButtonsState <- function(widget, a) {
 	if(buttonState[a[1], a[2]]) {buttonState[a[1], a[2]] <<- FALSE} else {buttonState[a[1], a[2]]  <<- TRUE}
 }
 
+# Side effect : write in customLists and customListsNames
 on_addListButton_clicked <- function(widget) {
 	clist <- row.names(baseData) 
 	for (i in 1:nbExperiments) {
@@ -154,6 +161,7 @@ on_addListButton_clicked <- function(widget) {
 	widgets$listsScrolledWindow$add(view)
 }
 
+# Side effect : write in customLists and customListsNames
 on_removeListButton_clicked <- function(widget) {
 	toBeRemoved <- widgets$listsScrolledWindow$getChild()$getSelection()$getSelectedRows()$retval[[1]]$getIndices()[[1]]
 	customLists[[toBeRemoved + 1]] <<- NULL

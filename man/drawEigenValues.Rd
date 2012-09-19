@@ -3,19 +3,18 @@
 \title{Draw a graph representing the importance of PCA components to a GtkDrawable (usually a GtkDrawingArea) or a file}
 \usage{
   drawEigenValues(widget = NULL, PCdata, drawingArea,
-    plotToFile = FALSE)
+    printToFile = FALSE)
 }
 \arguments{
-  \item{widget}{used for callbacks, ignored #TODO : remove
-  this parameter}
+  \item{widget}{used for callbacks, ignored}
 
   \item{PCdata}{an object of type \code{prcomp}}
 
   \item{drawingArea}{a GtkDrawable (usually a
-  GtkDrawingArea) if \code{\link{plotTofile}} is set to
+  GtkDrawingArea) if \code{printTofile} is set to
   \code{FALSE}, otherwise the path to a file}
 
-  \item{plotToFile}{a boolean. If set to \code{TRUE}, will
+  \item{printToFile}{a boolean. If set to \code{TRUE}, will
   plot to a file.}
 }
 \value{
