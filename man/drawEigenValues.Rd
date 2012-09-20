@@ -2,12 +2,9 @@
 \alias{drawEigenValues}
 \title{Draw a graph representing the importance of PCA components to a GtkDrawable (usually a GtkDrawingArea) or a file}
 \usage{
-  drawEigenValues(widget = NULL, PCdata, drawingArea,
-    printToFile = FALSE)
+  drawEigenValues(PCdata, drawingArea, printToFile = FALSE)
 }
 \arguments{
-  \item{widget}{used for callbacks, ignored}
-
   \item{PCdata}{an object of type \code{prcomp}}
 
   \item{drawingArea}{a GtkDrawable (usually a

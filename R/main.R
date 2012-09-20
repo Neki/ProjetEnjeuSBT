@@ -6,7 +6,7 @@
 #' 
 #' The main function of this package is \code{\link{genesSelectorGUI}}
 #'  
-#' @import RGtk2 cairoDevice VennDiagram
+#' @import grid VennDiagram RGtk2 cairoDevice
 #' @exportPattern "_"
 #' @title A GUI to facilitate gene selection based on p-value and folds criteria from DNA chip experiments
 #' @docType package
@@ -31,19 +31,23 @@ NULL
 #
 # Most "include" Roxygen tags are not really necesssary, but they facilitate reading the code 
 # by indicating where functions used in a file are defined.
+# 
+# In order for the function gtkBuilderConnectSignals to work, callbacks must be defined in the global
+# environmnment, so the package export all functions containing "_" in their names.
+# Make sure any callback added contain an underscore in his name, otherwise the function will fail.
 
 #' Launch the genes selector GUI
 #' 
 #' This function start a new Graphical User Interface for the genes selector. Make sure you have not 
 #' any instance of the GUI running before calling this function.
-#' The full documentation on this tool can be acessed through the help manual, located in the "inst/doc"
-#' subfolder of the package.
+#' The full documentation on this tool can be acessed through the help manual, located in the "doc"
+#' subfolder of the package installation folder.
 #' 
 #' @keywords GUI, gene, selection
 #' @export
 genesSelectorGUI <- function() {
 	
-	
+	require(VennDiagram, quietly = TRUE) # Workaround to avoid a "error in as.environment(pos)"
 	widgets <<- initWidgets()
 	init()
 	

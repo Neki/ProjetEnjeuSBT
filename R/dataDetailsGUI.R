@@ -1,6 +1,7 @@
 #' @include PCAGui.R
 #' @include clustering.R
 
+# Side effect : write in PCAinitialData
 on_dataButton_clicked <- function(widget) {
 	columns <- c()
         for(i in 1:nbExperiments) {

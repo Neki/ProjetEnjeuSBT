@@ -1,6 +1,6 @@
 \name{computePCA}
 \alias{computePCA}
-\title{Compute the Principal Compenent Analysis of a data frame}
+\title{Compute the Principal Component Analysis of a data frame}
 \usage{
   computePCA(mydata)
 }

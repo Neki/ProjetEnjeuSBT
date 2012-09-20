@@ -5,8 +5,8 @@
   deleteCairoDevice(mydevice)
 }
 \arguments{
-  \item{mydevice}{a GtkDrawable used as a device (the
-  function \code{\link{changeCairoDevice}} or
+  \item{mydevice}{a GtkDrawable used as a device
+  (\code{\link{changeCairoDevice}} or
   \code{\link{registerCairoDevice}} should have been used
   on the GtkDrawable before).}
 }

@@ -2,12 +2,10 @@
 \alias{drawPCA}
 \title{Draw a PCA correlation plot to a GtkDrawable (usually a GtkDrawingArea) or a file}
 \usage{
-  drawPCA(widget = NULL, PCx, PCy, PCdata, Veclabels,
-    drawingArea, printToFile = FALSE)
+  drawPCA(PCx, PCy, PCdata, Veclabels, drawingArea,
+    printToFile = FALSE)
 }
 \arguments{
-  \item{widget}{used for callbacks (now ignored)}
-
   \item{PCx}{the number of the principal component (as an
   integer) which will be the x coordinate of points}
 

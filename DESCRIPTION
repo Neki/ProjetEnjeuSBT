@@ -8,8 +8,9 @@ Authors@R: c(person("Benoit Faucon", "Developer", role = c("aut", "cre", "ctb"),
 Author: Benoit Faucon
 Maintainer: Benoit Faucon <faucon.benoit@cegetel.net>
 Imports:
-    RGtk2,
+    grid,
     VennDiagram,
+    RGtk2,
     cairoDevice
 Description: 
 License: GPL (>= 2)

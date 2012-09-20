@@ -57,7 +57,7 @@ changeCairoDevice <- function(mydevice) {
 #' 
 #' Warning : this also delete the GtkDrawable.
 #' 
-#' @param mydevice a GtkDrawable used as a device (the function \code{\link{changeCairoDevice}} or
+#' @param mydevice a GtkDrawable used as a device (\code{\link{changeCairoDevice}} or
 #' \code{\link{registerCairoDevice}} should have been used on the GtkDrawable before).
 #' @seealso \code{\link{registerCairoDevice}} \code{\link{changeCairoDevice}}
 deleteCairoDevice <- function(mydevice) {

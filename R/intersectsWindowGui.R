@@ -2,7 +2,6 @@
 #' @include PCAGui.R
 #' @include clustering.R
 
-# Creating callbacks
 on_useUpperLimitButton_toggled <- function(widget) {
 	if(!widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(FALSE)
 	if(widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(TRUE)	
@@ -121,9 +120,9 @@ on_intersectsButton_clicked <- function(widget) {
 	PCAdata <<- computePCA(selectedData[,-1])
 	nbPC <- ncol(PCAdata$rotation)
 	handlePCAComboBoxes(nbPC, widgets$PC1ComboBox, widgets$PC2ComboBox)
-	drawPCA(NULL, widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
-	drawEigenValues(NULL, PCAdata, widgets$eigenDrawingArea)
-	drawClustering(NULL, selectedData[,-1], widgets$clusteringDrawingArea)
+	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
+	drawEigenValues(PCAdata, widgets$eigenDrawingArea)
+	drawClustering(selectedData[,-1], widgets$clusteringDrawingArea)
 }
 
 on_customListsButton_clicked <- function(widget) {

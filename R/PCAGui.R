@@ -1,7 +1,7 @@
 #' @include deviceManager.R
 NULL
 
-#' Compute the Principal Compenent Analysis of a data frame
+#' Compute the Principal Component Analysis of a data frame
 #' 
 #' This is merely a wrapper of \code{\link{prcomp}}
 #' 
@@ -47,7 +47,6 @@ handlePCAComboBoxes <- function(nbPC, PC1ComboBox, PC2ComboBox) {
 #' This function supports .tiff and .svg extensions when plotting to a file. If another extension is given
 #' this function will raise an error.
 #' 
-#' @param widget used for callbacks (now ignored)
 #' @param PCx the number of the principal component (as an integer) which will be the x coordinate of points
 #' @param PCy the number of the principal component (as an integer) which will be the y coordinate of points
 #' @param PCdata an object of type \code{prcomp}
@@ -57,7 +56,7 @@ handlePCAComboBoxes <- function(nbPC, PC1ComboBox, PC2ComboBox) {
 #' this function will plot to the file whose path is \code{drawingArea}
 #' @return \code{FALSE} if the function failed at plotting, \code{TRUE} otherwise
 #' @seealso \code{\link{computePCA}}, \code{\link{handlePCAComboBoxes}}
-drawPCA <- function(widget = NULL, PCx, PCy, PCdata, Veclabels, drawingArea, printToFile = FALSE) { 
+drawPCA <- function(PCx, PCy, PCdata, Veclabels, drawingArea, printToFile = FALSE) { 
 	if(PCx < 1 | PCy < 1) return(FALSE)
 	cols = c("cornflowerblue", "darkblue", "red", "deeppink3", "orange", "chocolate4", "darkorchid1", "darkmagenta", "darkseagreen", "darkslategrey")
 	colVec <- rep(cols, rep(nbReplicats, length(cols)))	
@@ -113,14 +112,13 @@ drawPCA <- function(widget = NULL, PCx, PCy, PCdata, Veclabels, drawingArea, pri
 #' This function supports .tiff and .svg extensions when plotting to a file. If another extension is given
 #' this function will raise an error.
 #' 
-#' @param widget used for callbacks, ignored
 #' @param PCdata an object of type \code{prcomp}
 #' @param drawingArea a GtkDrawable (usually a GtkDrawingArea) if \code{printTofile} is set to \code{FALSE},
 #' otherwise the path to a file
 #' @param printToFile a boolean. If set to \code{TRUE}, will plot to a file.
 #' @return always \code{TRUE}
 #' @seealso \code{\link{drawPCA}}
-drawEigenValues <- function(widget = NULL, PCdata, drawingArea, printToFile = FALSE) {
+drawEigenValues <- function(PCdata, drawingArea, printToFile = FALSE) {
 	if(printToFile) {
 		ext <- getExtension(drawingArea)
 		if(ext == "tiff") {
@@ -146,7 +144,7 @@ drawEigenValues <- function(widget = NULL, PCdata, drawingArea, printToFile = FA
 # Below are functions which are only wrappers for drawPCA
 # They are used as callbacks
 updatePCA <- function(widget) {
-	 drawPCA(widget, widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
+	 drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
 }
 
 updateInitialPCA <- function(widget) {
@@ -155,7 +153,7 @@ updateInitialPCA <- function(widget) {
 			                        columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
 	        }
 
-	 drawPCA(widget, widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
+	 drawPCA(widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
 }
 
 

@@ -9,8 +9,8 @@
   the genes selector. Make sure you have not any instance
   of the GUI running before calling this function. The full
   documentation on this tool can be acessed through the
-  help manual, located in the "inst/doc" subfolder of the
-  package.
+  help manual, located in the "doc" subfolder of the
+  package installation folder.
 }
 \keyword{gene,}
 \keyword{GUI,}
