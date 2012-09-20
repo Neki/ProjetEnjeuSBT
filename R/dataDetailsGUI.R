@@ -10,9 +10,9 @@ on_dataButton_clicked <- function(widget) {
 	PCAinitialData <<- computePCA(baseData[,-c(1, columns)])	
 	widgets$datasetInformationWindow$show()
 	handlePCAComboBoxes(ncol(PCAinitialData$rotation), widgets$PC1DataComboBox, widgets$PC2DataComboBox)
-	drawPCA(NULL, widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
-	drawEigenValues(NULL, PCAinitialData, widgets$eigenInitialDrawingArea)
-	drawClustering(NULL, baseData[,-c(1, columns)], widgets$clusteringInitialDrawingArea)
+	drawPCA(widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
+	drawEigenValues(PCAinitialData, widgets$eigenInitialDrawingArea)
+	drawClustering(baseData[,-c(1, columns)], widgets$clusteringInitialDrawingArea)
 	
 
 }
