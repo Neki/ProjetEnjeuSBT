@@ -25,3 +25,4 @@ Collate:
     'loadWindowGui.R'
     'saveManager.R'
     'main.R'
+    'refinement.R'

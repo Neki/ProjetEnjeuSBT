@@ -2,6 +2,7 @@
 init <- function() {
 
 # Initializing global variables
+	#TODO : comment them and indicate where there are used
 	baseData <<- NULL
 	dataFileOK <<- FALSE
 	foldUpMin <<- 1.20
@@ -22,6 +23,7 @@ init <- function() {
 	selectedData <<- data.frame()
 	PCAdata <<- NULL
 	PCAinitialData <<- NULL
+	correlationLimits <- data.frame()
 }
 
 initWidgets <- function() {	
@@ -87,6 +89,10 @@ initWidgets <- function() {
 	widgets$upDrawingArea <- builder$getObject("upDrawingArea") 
 	widgets$downDrawingArea <- builder$getObject("downDrawingArea")
 	widgets$saveFolderChooserButton <- builder$getObject("saveFolderChooserButton")
+	widgets$refineButton <- builder$getObject("refineButton")
+	
+	widgets$refinementWindow <- builder$getObject("refinementWindow")
+	widgets$limitersVBox <- builder$getObject("limitersVBox")
 	
 # As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 	widgets$PC1ComboBox <- gtkComboBoxNewText()

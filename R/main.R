@@ -27,13 +27,13 @@ NULL
 # Other global variables are created in init.R, function init()
 # When reading the code, you can assume that any function can read any global variable and read/write
 # any widget state.
-# If a function writes in a global variable, this *should* be documented.
+# If a function writes in a global variable, it should (but may not) be documented.
 #
 # Most "include" Roxygen tags are not really necesssary, but they facilitate reading the code 
 # by indicating where functions used in a file are defined.
 # 
 # In order for the function gtkBuilderConnectSignals to work, callbacks must be defined in the global
-# environmnment, so the package export all functions containing "_" in their names.
+# environmnment, so the package exports all functions containing "_" in their names.
 # Make sure any callback added contain an underscore in his name, otherwise the function will fail.
 
 #' Launch the genes selector GUI

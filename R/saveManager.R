@@ -34,8 +34,7 @@ saveResults <- function(saveFolder) {
 	dir.create(file.path(saveFolder, "vennDiagrams"))
 }
 
-on_saveButton_clicked <- function(widget) {
-	# Retrieve folder to save in
-	saveFolder <- widgets$saveFolderChooserButton$getFilename()
+on_saveButton_clicked <- function(widget) {	
+	saveFolder <- widgets$saveFolderChooserButton$getFilename() # Retrieve folder to save in
 	saveResults(saveFolder)
 }

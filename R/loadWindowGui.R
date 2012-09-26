@@ -84,7 +84,7 @@ on_confirmButton_clicked <- function(widget) {
 			gSignalConnect(button, 'toggled', updateButtonsState, c(i,4))
                 	widgets$optionTable$attachDefaults(button, 4, 5, i+1, i+2)
         	}
-		buttonState <<- array(FALSE, c(nbExperiments, 4))
+		buttonState <<- array(data = FALSE, dim = c(nbExperiments, 4))
 		# Configuring data information window
 		configureDataInformation()
 	}
