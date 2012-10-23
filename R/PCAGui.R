@@ -3,7 +3,7 @@ NULL
 
 #' Compute the Principal Component Analysis of a data frame
 #' 
-#' This is merely a wrapper of \code{\link{prcomp}}
+#' This is merely a wrapper around \code{\link{prcomp}}
 #' 
 #' @param mydata a data frame which will be transposed and submitted to prcomp
 #' @return an object of type \code{prcomp} 
@@ -156,5 +156,7 @@ updateInitialPCA <- function(widget) {
 	 drawPCA(widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
 }
 
-
+updateFinalPCA <- function(widget) {
+	drawPCA(widgets$PC1FinalComboBox$getActive()+1, widgets$PC2FinalComboBox$getActive()+1, PCAfinalData, names(selectedData[,-1]), widgets$PCAFinalArea)
+}
 

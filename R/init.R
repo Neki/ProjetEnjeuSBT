@@ -23,7 +23,7 @@ init <- function() {
 	selectedData <<- data.frame()
 	PCAdata <<- NULL
 	PCAinitialData <<- NULL
-	correlationLimits <- data.frame()
+	PCAfinalData <<- NULL
 }
 
 initWidgets <- function() {	
@@ -93,6 +93,11 @@ initWidgets <- function() {
 	
 	widgets$refinementWindow <- builder$getObject("refinementWindow")
 	widgets$limitersVBox <- builder$getObject("limitersVBox")
+	widgets$PCAFinalArea <- builder$getObject("PCAFinalArea")
+	widgets$finalEigenArea <- builder$getObject("finalEigenArea")
+	widgets$finalUpdateButton <- builder$getObject("finalUpdateButton")
+	widgets$finalClusteringArea <- builder$getObject("finalClusteringArea")
+	widgets$finalPCAHBox <- builder$getObject("finalPCAHBox")
 	
 # As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 	widgets$PC1ComboBox <- gtkComboBoxNewText()
@@ -108,6 +113,13 @@ initWidgets <- function() {
 	widgets$dataPCChooserHBox$reorderChild(widgets$PC1DataComboBox, 1)
 	widgets$dataPCChooserHBox$packStart(widgets$PC2DataComboBox, FALSE)
 	widgets$dataPCChooserHBox$reorderChild(widgets$PC2DataComboBox, 3)
+	
+	widgets$PC1FinalComboBox <- gtkComboBoxNewText()
+	widgets$PC2FinalComboBox <- gtkComboBoxNewText()
+	widgets$finalPCAHBox$packStart(widgets$PC1FinalComboBox, FALSE)
+	widgets$finalPCAHBox$reorderChild(widgets$PC1FinalComboBox, 1)
+	widgets$finalPCAHBox$packStart(widgets$PC2FinalComboBox, FALSE)
+	widgets$finalPCAHBox$reorderChild(widgets$PC2FinalComboBox, 3)
 	
 	csvFilter <- gtkFileFilterNew()
 	csvFilter$addPattern("*.csv")
