@@ -4,7 +4,7 @@ on_refineButton_clicked <- function(widget) {
 	widgets$intersectsWindow$hide()
 }
 
-# Side effect : write in correlationLimits
+# Side effect : write in correlationLimits and finalData
 configureRefinementWindow <- function(widget) {
 	# Let's remove any older child widget
 	children <- widgets$limitersVBox$getChildren()
@@ -18,6 +18,15 @@ configureRefinementWindow <- function(widget) {
 		addCorellationLimiter(i)
 	}
 	handlePCAComboBoxes(nbPC, widgets$PC1FinalComboBox, widgets$PC2FinalComboBox)
+	
+	# Update dataset name
+	widgets$datasetNameLabel2$setText(paste("Dataset:",widgets$dataFileChooserButton$getFilename()))
+	
+	# Initial PCA and clustering
+	finalData <<- selectedData
+	widgets$finalSelectedGenesLabel$setText(paste(nrow(finalData), "genes selected"))
+	drawClustering(finalData[,-1], widgets$finalClusteringArea, FALSE)
+	drawEigenValues(PCAfinalData, widgets$finalEigenArea, FALSE)
 }
 
 addCorellationLimiter <- function(PCi) {
@@ -72,4 +81,5 @@ on_finalUpdateButton_clicked <- function(widget) {
 	updateFinalPCA(widget) # Draw the PCA plot
 	drawClustering(finalData[,-1], widgets$finalClusteringArea, FALSE)
 	drawEigenValues(PCAfinalData, widgets$finalEigenArea, FALSE)
+	widgets$finalSelectedGenesLabel$setText(paste(nrow(finalData), "genes selected"))
 }

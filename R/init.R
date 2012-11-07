@@ -1,8 +1,8 @@
 
 init <- function() {
-
+	
 # Initializing global variables
-	#TODO : comment them and indicate where there are used
+	# TODO : comment them and indicate where there are used
 	baseData <<- NULL
 	dataFileOK <<- FALSE
 	foldUpMin <<- 1.20
@@ -98,6 +98,8 @@ initWidgets <- function() {
 	widgets$finalUpdateButton <- builder$getObject("finalUpdateButton")
 	widgets$finalClusteringArea <- builder$getObject("finalClusteringArea")
 	widgets$finalPCAHBox <- builder$getObject("finalPCAHBox")
+	widgets$datasetNameLabel2 <- builder$getObject("datasetNameLabel2")
+	widgets$finalSelectedGenesLabel <- builder$getObject("finalSelectedGenesLabel")
 	
 # As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 	widgets$PC1ComboBox <- gtkComboBoxNewText()

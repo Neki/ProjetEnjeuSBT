@@ -14,7 +14,7 @@ on_useLowerLimitButton_toggled <- function(widget) {
 	if(widgets$useLowerLimitButton$getActive()) widgets$foldDownMinSpinButton$setSensitive(TRUE)	
 	widgets$intersectFrame$setSensitive(FALSE)
 	widgets$PCAFrame$setSensitive(FALSE)
-
+	
 }
 
 # Side effect : write in foldUpMin
@@ -69,7 +69,7 @@ on_createListsButton_clicked <- function(widget) {
 		if (widgets$useUpperLimitButton$getActive()) {genesUp[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds > foldUpMin & folds < foldUpMax]} else {genesUp[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds > foldUpMin]} 
 		if (widgets$useLowerLimitButton$getActive()) {genesDown[[i]] <<- row.names(baseData)[pvalues < pvalMax & folds > foldDownMin & folds < foldDownMax]} else {genesDown[[i]]  <<- row.names(baseData)[pvalues < pvalMax & folds < foldDownMax]}
 	}
-
+	
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Lists created.")
 	widgets$intersectFrame$setSensitive(TRUE)
 	# Drawing Venn Diagrams using the function in vennDiagramms.R
@@ -131,7 +131,7 @@ on_customListsButton_clicked <- function(widget) {
 
 on_confirmListsButton_clicked <- function(widget) {
 	widgets$customListsWindow$hide()
-	#TODO : finish
+	# TODO : finish
 }
 
 updateButtonsState <- function(widget, a) {
@@ -164,7 +164,7 @@ on_addListButton_clicked <- function(widget) {
 on_removeListButton_clicked <- function(widget) {
 	toBeRemoved <- widgets$listsScrolledWindow$getChild()$getSelection()$getSelectedRows()$retval[[1]]$getIndices()[[1]]
 	customLists[[toBeRemoved + 1]] <<- NULL
-        customListsNames  <<- customListsNames[-(toBeRemoved + 1)] 	
+	customListsNames  <<- customListsNames[-(toBeRemoved + 1)] 	
 	model <- rGtkDataFrame(customListsNames)
 	view <- gtkTreeView(model)
 	view$getSelection()$setMode("browse")
@@ -172,7 +172,6 @@ on_removeListButton_clicked <- function(widget) {
 	view$appendColumn(column)
 	widgets$listsScrolledWindow$remove(widgets$listsScrolledWindow$getChild())
 	widgets$listsScrolledWindow$add(view)
-
+	
 }
-
 

@@ -29,7 +29,7 @@ NULL
 # any widget state.
 # If a function writes in a global variable, it should (but may not) be documented.
 #
-# Most "include" Roxygen tags are not really necesssary, but they facilitate reading the code 
+# Most "include" Roxygen tags are not really necessary, but they facilitate reading the code 
 # by indicating where functions used in a file are defined.
 # 
 # In order for the function gtkBuilderConnectSignals to work, callbacks must be defined in the global
@@ -57,5 +57,4 @@ genesSelectorGUI <- function() {
 	gSignalConnect(widgets$PC2DataComboBox, "changed", updateInitialPCA)
 	widgets$loadFileWindow$show()
 }
-
 

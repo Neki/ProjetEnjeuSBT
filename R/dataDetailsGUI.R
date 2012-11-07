@@ -4,9 +4,9 @@
 # Side effect : write in PCAinitialData
 on_dataButton_clicked <- function(widget) {
 	columns <- c()
-        for(i in 1:nbExperiments) {
-	                columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
-        }
+	for(i in 1:nbExperiments) {
+		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
+	}
 	PCAinitialData <<- computePCA(baseData[,-c(1, columns)])	
 	widgets$datasetInformationWindow$show()
 	handlePCAComboBoxes(ncol(PCAinitialData$rotation), widgets$PC1DataComboBox, widgets$PC2DataComboBox)
@@ -14,7 +14,7 @@ on_dataButton_clicked <- function(widget) {
 	drawEigenValues(PCAinitialData, widgets$eigenInitialDrawingArea)
 	drawClustering(baseData[,-c(1, columns)], widgets$clusteringInitialDrawingArea)
 	
-
+	
 }
 
 configureDataInformation <- function() {
@@ -26,12 +26,12 @@ configureDataInformation <- function() {
 	widgets$repInfoLabel$setText(paste("Replicats:", nbReplicats))
 	# Retrieving samples names by creating a vector containing columns numbers to be ignored
 	columns <- c()
-        for(i in 1:nbExperiments) {
-                columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
-        }
+	for(i in 1:nbExperiments) {
+		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
+	}
 	samplesNames <- colnames(baseData)[-c(1,columns)]
 	widgets$samplesNamesLabel$setText(paste(samplesNames, collapse=" "))
-
+	
 }
 
 on_continueInfoButton_clicked <- function(widget) {

@@ -1,39 +1,57 @@
 #' Save current results in a folder
 #' 
 #' This function uses global variables created by the package (thus need only one parameter)
-#' Create the following subfolders :
-#'     genesLists
-#'     PCA
-#'     clustering
-#'     vennDiagrams
-#' 
 #' Create the following files :
-#'   in genesLists :
-#'     upGenes.txt 				list of up genes in each group (after step 1)
-#'     downGenes.txt 			list of down genes in each group (after step 1)
-#'     selectionCriteria.txt 	folds and p-values use to create these lists in step 1 + an indication on the criterium used in step 2 
-#'     selectedUpGenes.txt 		list of all up selected genes (after step 2)
-#'     selectedDownGenes.txt 	list of all down selected genes (after step 2)
-#'     selectedGenes.txt 		list of all selected genes after step 2 (union of the 2 previous files)
-#'     selectedData.csv			the data frame used for PCA analysis
-#'   in PCA
+#'   gene lists:
+#'     step1/genesUp.csv			list of up genes in each group (after step 1)
+#'     step1/genesDown.csv 			list of down genes in each group (after step 1)
+#'     step1/selectionCriteria.txt 	folds and p-values use to create these lists in step 1
+#'     step2/selectedGenes.txt 		list of all selected genes (after step 2)
+#'     step3/selectedData.csv		the data frame used for PCA analysis in step 3
+#'   PCA
 #'     PCA.tiff and PCA.svg 	PCA plots
 #'     components.txt 			variances and cumulated variances
 #'     correlationMatrix.csv 	computed correlation matrix
 #'     projections.csv 			indicate the projection of each gene on eigenvectors
-#'   in clustering
+#'   clustering
 #'     clustering.tiff and clustering.svg	clustering plots
-#'   in vennDiagrams
+#'   vennDiagrams
 #'     upVennDiagram.tiff and downVennDiagram.tiff	Venn diagrams as displayed on the main window
 #' 	
 #' @param saveFolder the path to the folder which will contain the results.
 saveResults <- function(saveFolder) {
-	dir.create(file.path(saveFolder, "genesList"))
-	dir.create(file.path(saveFolder, "PCA"))
-	dir.create(file.path(saveFolder, "clustering"))
-	dir.create(file.path(saveFolder, "vennDiagrams"))
-}
+	sepCharacter <- widgets$colEntry$getText()
+	
+	unlink(file.path(saveFolder, "step1"), recursive = TRUE)	
+	dir.create(file.path(saveFolder, "step1"))	
+	# Saving genesUp.txt
+	file = file.path(saveFolder, "step1", "genesUp.csv")
+	for(i in 1:length(genesUp)) {
+		y <- genesUp[[i]]
+		write(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc."),
+				file = file, append = TRUE)
+		write(paste(y, baseData[y,1], sep = sepCharacter), file = file, append = TRUE)		
+	}
+	
+	# Saving genesDown.txt
+	file = file.path(saveFolder, "step1", "genesDown.csv")
+	for(i in 1:length(genesDown)) {
+		y <- genesDown[[i]]
+		write(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc."),
+				file = file, append = TRUE)
+		write(paste(y, baseData[y,1], sep = sepCharacter), file = file, append = TRUE)		
+	}
+	
+	# ...
+	file = file.path(saveFolder, "step1", "selectionCriteria.txt")
+	write(paste("Up : fold between",foldUpMin,"and", foldUpMax,"\n Down : fold between",
+					foldDownMin,"and",foldDownMax))
 
+	file = file.path(saveFolder, "step2", "selectedGenes.csv")
+	y <- row.names(selectedData)
+	# TODO : finish
+}
+	
 on_saveButton_clicked <- function(widget) {	
 	saveFolder <- widgets$saveFolderChooserButton$getFilename() # Retrieve folder to save in
 	saveResults(saveFolder)

@@ -22,12 +22,12 @@
 registerCairoDevice <- function(mydevice) {
 	# Check if the device was already registered
 	if(!is.null(gObjectGetData(mydevice, "device.number"))) return(FALSE)
-
+	
 	asCairoDevice(mydevice)
-
+	
 	#Check if mydevice is visible
 	if(is.null(dev.cur())) return (FALSE)
-
+	
 	gObjectSetData(mydevice, "device.number", data=dev.cur())
 	return(TRUE)
 }
@@ -49,7 +49,7 @@ registerCairoDevice <- function(mydevice) {
 changeCairoDevice <- function(mydevice) {
 	# Registering the device (will do nothing if already registered)
 	registerCairoDevice(mydevice)
-
+	
 	dev.set(gObjectGetData(mydevice, "device.number"))
 }
 

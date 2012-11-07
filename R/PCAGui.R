@@ -31,7 +31,7 @@ handlePCAComboBoxes <- function(nbPC, PC1ComboBox, PC2ComboBox) {
 	treeModel$clear()
 	treeModel <- PC2ComboBox$getModel()
 	treeModel$clear()
-
+	
 	for(i in 1:nbPC) {
 		PC1ComboBox$appendText(paste("PC", i, sep=""))
 		PC2ComboBox$appendText(paste("PC", i, sep=""))
@@ -95,13 +95,13 @@ drawPCA <- function(PCx, PCy, PCdata, Veclabels, drawingArea, printToFile = FALS
 		changeCairoDevice(drawingArea)
 		par(mar=c(5,5,0.2,0.2))
 		plot(PCdata$x[,PCx], PCdata$x[,PCy], 
-		     xlab=paste("PC",PCx, sep=""),
-		     ylab=paste("PC",PCy, sep=""),
-		     pch =16,
-		     cex = 0.9,
-		     cex.axes = 0.8,
-		     col = colVec
-		     )
+				xlab=paste("PC",PCx, sep=""),
+				ylab=paste("PC",PCy, sep=""),
+				pch =16,
+				cex = 0.9,
+				cex.axes = 0.8,
+				col = colVec
+		)
 		text(PCdata$x[,PCx], PCdata$x[,PCy], labels=Veclabels, cex=0.9, pos=4, col="black")
 		return(TRUE)
 	}
@@ -144,19 +144,18 @@ drawEigenValues <- function(PCdata, drawingArea, printToFile = FALSE) {
 # Below are functions which are only wrappers for drawPCA
 # They are used as callbacks
 updatePCA <- function(widget) {
-	 drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
+	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
 }
 
 updateInitialPCA <- function(widget) {
 	columns <- c()
-	        for(i in 1:nbExperiments) {
-			                        columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
-	        }
-
-	 drawPCA(widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
+	for(i in 1:nbExperiments) {
+		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
+	}
+	
+	drawPCA(widgets$PC1DataComboBox$getActive()+1, widgets$PC2DataComboBox$getActive()+1, PCAinitialData, names(baseData[,-c(1, columns)]), widgets$PCADataArea)
 }
 
 updateFinalPCA <- function(widget) {
 	drawPCA(widgets$PC1FinalComboBox$getActive()+1, widgets$PC2FinalComboBox$getActive()+1, PCAfinalData, names(selectedData[,-1]), widgets$PCAFinalArea)
 }
-
