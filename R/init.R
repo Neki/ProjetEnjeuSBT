@@ -24,6 +24,7 @@ init <- function() {
 	PCAdata <<- NULL
 	PCAinitialData <<- NULL
 	PCAfinalData <<- NULL
+	currentStep <<- 1 
 }
 
 initWidgets <- function() {	

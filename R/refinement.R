@@ -2,6 +2,7 @@ on_refineButton_clicked <- function(widget) {
 	configureRefinementWindow()	
 	widgets$refinementWindow$show()
 	widgets$intersectsWindow$hide()
+	currentStep <<- 4
 }
 
 # Side effect : write in correlationLimits and finalData

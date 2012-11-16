@@ -20,7 +20,10 @@
 #' 	
 #' @param saveFolder the path to the folder which will contain the results.
 saveResults <- function(saveFolder) {
+	# TODO : add a global variable to keep track of the current step, to chage what to save accordingly
+	# Currently, everything, including null data, is saved, and this may raise errors
 	sepCharacter <- widgets$colEntry$getText()
+	decCharacter <- widgets$decEntry$getText()
 	
 	unlink(file.path(saveFolder, "step1"), recursive = TRUE)	
 	dir.create(file.path(saveFolder, "step1"))	
@@ -42,13 +45,32 @@ saveResults <- function(saveFolder) {
 		write(paste(y, baseData[y,1], sep = sepCharacter), file = file, append = TRUE)		
 	}
 	
-	# ...
+	# Step 2
 	file = file.path(saveFolder, "step1", "selectionCriteria.txt")
 	write(paste("Up : fold between",foldUpMin,"and", foldUpMax,"\n Down : fold between",
 					foldDownMin,"and",foldDownMax))
 
+	drawVennDiagram(widget = NULL, fileUp = file.path(saveFolder, "step1", "vennDiagramUp.tiff",
+					fileDown = file.path(saveFolder, "step1", "vennDiagramDown.tiff")))
+		
 	file = file.path(saveFolder, "step2", "selectedGenes.csv")
-	y <- row.names(selectedData)
+	write.csv(selectedData[1,], file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE, row.names = TRUE)
+	
+	# Step 3
+	file = file.path(saveFolder, "step3", "PCA.tiff")
+	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file)
+	file = file.path(saveFolder, "step3", "PCA.svg")
+	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file)
+	
+	file = file.path(saveFolder, "step3", "eigenValues.tiff")
+	drawEigenValues(PCAdata, file)
+	file = file.path(saveFolder, "step3", "clustering.tiff")
+	drawClustering(selectedData[,-1], file)
+	
+	file = file.path(saveFolder, "step3", "components.txt")
+	capture.output(summary(PCAdata), file=file)
+	
+	# Step 4
 	# TODO : finish
 }
 	

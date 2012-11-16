@@ -75,7 +75,7 @@ on_createListsButton_clicked <- function(widget) {
 	# Drawing Venn Diagrams using the function in vennDiagramms.R
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Lists created, drawing Venn Diagrams...")
 	drawVennDiagrams()
-	
+	currentStep <<- 2
 }
 
 # Side effect : write in selectedData and PCAdata
@@ -123,6 +123,7 @@ on_intersectsButton_clicked <- function(widget) {
 	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
 	drawEigenValues(PCAdata, widgets$eigenDrawingArea)
 	drawClustering(selectedData[,-1], widgets$clusteringDrawingArea)
+	currentStep <<- 3
 }
 
 on_customListsButton_clicked <- function(widget) {
@@ -175,3 +176,14 @@ on_removeListButton_clicked <- function(widget) {
 	
 }
 
+#' Change the current step
+#' 
+#' Desactivate widgets and change currentStep global variable. Does not change focus or hide or unhide windows.
+#' 
+#' @param step integer, currently between 0 (file loading screen) and 4
+setCurrentStep <- function(step) {	
+	if (step == 1) {
+		# TODO : finish
+	}
+	currentStep <<- step
+}
