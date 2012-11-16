@@ -5,15 +5,13 @@
 on_useUpperLimitButton_toggled <- function(widget) {
 	if(!widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(FALSE)
 	if(widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(TRUE)	
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 }
 
 on_useLowerLimitButton_toggled <- function(widget) {
 	if(!widgets$useLowerLimitButton$getActive()) widgets$foldDownMinSpinButton$setSensitive(FALSE)
 	if(widgets$useLowerLimitButton$getActive()) widgets$foldDownMinSpinButton$setSensitive(TRUE)	
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 	
 }
 
@@ -22,8 +20,7 @@ on_foldUpMinSpinButton_value_changed <- function(widget) {
 	foldUpMin <<- widgets$foldUpMinSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldDownMaxSpinButton$setValue(-foldUpMin)
 	if(widgets$foldUpMaxSpinButton$getValue() < foldUpMin) widgets$foldUpMaxSpinButton$setValue(foldUpMin)
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 }
 
 # Side effect : write in foldUpMax
@@ -31,8 +28,7 @@ on_foldUpMaxSpinButton_value_changed <- function(widget) {
 	foldUpMax <<- widgets$foldUpMaxSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldDownMinSpinButton$setValue(-foldUpMax)
 	if(foldUpMax < widgets$foldUpMinSpinButton$getValue()) widgets$foldUpMinSpinButton$setValue(foldUpMax)
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 }
 
 # Side effect : write in foldDownMin
@@ -40,8 +36,7 @@ on_foldDownMinSpinButton_value_changed <- function(widget) {
 	foldDownMin <<- widgets$foldDownMinSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldUpMaxSpinButton$setValue(-foldDownMin)
 	if(widgets$foldDownMaxSpinButton$getValue() < foldDownMin) widgets$foldDownMaxSpinButton$setValue(foldDownMin)
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 }
 
 # Side effect : write in foldDownMax
@@ -49,13 +44,12 @@ on_foldDownMaxSpinButton_value_changed <- function(widget) {
 	foldDownMax <<- widgets$foldDownMaxSpinButton$getValue()
 	if(widgets$linkFoldLimitsCheckButton$getActive()) widgets$foldUpMinSpinButton$setValue(-foldDownMax)
 	if(foldDownMax < widgets$foldDownMinSpinButton$getValue()) widgets$foldDownMinSpinButton$setValue(foldDownMax)
-	widgets$intersectFrame$setSensitive(FALSE)
-	widgets$PCAFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 }
 
 # Side effect : write in pvalMax
 on_pvalueSpinButton_value_changed <- function(widget) {
-	widgets$intersectFrame$setSensitive(FALSE)
+	setCurrentStep(1)
 	pvalMax  <<- widgets$pvalueSpinButton$getValue()
 }
 
@@ -75,7 +69,7 @@ on_createListsButton_clicked <- function(widget) {
 	# Drawing Venn Diagrams using the function in vennDiagramms.R
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Lists created, drawing Venn Diagrams...")
 	drawVennDiagrams()
-	currentStep <<- 2
+	setCurrentStep(2)
 }
 
 # Side effect : write in selectedData and PCAdata
@@ -123,7 +117,7 @@ on_intersectsButton_clicked <- function(widget) {
 	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), widgets$PCAArea)
 	drawEigenValues(PCAdata, widgets$eigenDrawingArea)
 	drawClustering(selectedData[,-1], widgets$clusteringDrawingArea)
-	currentStep <<- 3
+	setCurrentStep(3)
 }
 
 on_customListsButton_clicked <- function(widget) {
@@ -183,7 +177,12 @@ on_removeListButton_clicked <- function(widget) {
 #' @param step integer, currently between 0 (file loading screen) and 4
 setCurrentStep <- function(step) {	
 	if (step == 1) {
+		widgets$intersectFrame$setSensitive(FALSE)
+		widgets$PCAFrame$setSensitive(FALSE)
 		# TODO : finish
+	}
+	else if (step == 2) {
+		widgets$PCAFrame$setSensitive(FALSE)
 	}
 	currentStep <<- step
 }

@@ -2,11 +2,11 @@ on_refineButton_clicked <- function(widget) {
 	configureRefinementWindow()	
 	widgets$refinementWindow$show()
 	widgets$intersectsWindow$hide()
-	currentStep <<- 4
+	setCurrentStep(4)
 }
 
 # Side effect : write in correlationLimits and finalData
-configureRefinementWindow <- function(widget) {
+configureRefinementWindow <- function() {
 	# Let's remove any older child widget
 	children <- widgets$limitersVBox$getChildren()
 	for(i in 1:length(children)) {
