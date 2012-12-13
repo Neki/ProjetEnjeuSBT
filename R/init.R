@@ -24,6 +24,7 @@ init <- function() {
 	PCAdata <<- NULL
 	PCAinitialData <<- NULL
 	PCAfinalData <<- NULL
+	finalData <<- NULL
 	currentStep <<- 1 
 }
 
@@ -101,6 +102,7 @@ initWidgets <- function() {
 	widgets$finalPCAHBox <- builder$getObject("finalPCAHBox")
 	widgets$datasetNameLabel2 <- builder$getObject("datasetNameLabel2")
 	widgets$finalSelectedGenesLabel <- builder$getObject("finalSelectedGenesLabel")
+	widgets$saveFolderStep4ChooserButton <- builder$getObject("saveFolderStep4ChooserButton")
 	
 # As of 3.8, Glade does not support gtkComboNewText() (and as for now RGtk2 does not support gtkComboBoxText() ) so we are to create text comboboxes manually
 	widgets$PC1ComboBox <- gtkComboBoxNewText()

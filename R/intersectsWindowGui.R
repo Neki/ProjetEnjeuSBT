@@ -65,7 +65,7 @@ on_createListsButton_clicked <- function(widget) {
 	}
 	
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Lists created.")
-	widgets$intersectFrame$setSensitive(TRUE)
+	
 	# Drawing Venn Diagrams using the function in vennDiagramms.R
 	widgets$intersectsStatusBar$push(widgets$intersectsStatusBar$getContextId("info"), "Lists created, drawing Venn Diagrams...")
 	drawVennDiagrams()
@@ -109,7 +109,7 @@ on_intersectsButton_clicked <- function(widget) {
 		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
 	}  
 	selectedData <<- selectedData[, - columns]
-	widgets$PCAFrame$setSensitive(TRUE)
+	
 	widgets$selectedGenesLabel$setText(paste(nrow(selectedData), "genes selected"))
 	PCAdata <<- computePCA(selectedData[,-1])
 	nbPC <- ncol(PCAdata$rotation)
@@ -183,6 +183,11 @@ setCurrentStep <- function(step) {
 	}
 	else if (step == 2) {
 		widgets$PCAFrame$setSensitive(FALSE)
+		widgets$intersectFrame$setSensitive(TRUE)
+	}
+	else if (step == 3) {
+		widgets$PCAFrame$setSensitive(TRUE)
+		widgets$intersectFrame$setSensitive(TRUE)
 	}
 	currentStep <<- step
 }

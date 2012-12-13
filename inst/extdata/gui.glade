@@ -1852,6 +1852,7 @@ Consult the manual for help.</property>
   <object class="GtkWindow" id="refinementWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Step 4 : refine selection using loadings</property>
+    <property name="default_width">800</property>
     <child>
       <object class="GtkVBox" id="vbox14">
         <property name="visible">True</property>
@@ -1861,7 +1862,7 @@ Consult the manual for help.</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkLabel" id="label31">
+              <object class="GtkLabel" id="datasetNameLabel2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Dataset : </property>
@@ -1886,10 +1887,11 @@ Consult the manual for help.</property>
               </packing>
             </child>
             <child>
-              <object class="GtkFileChooserButton" id="saveFolderChooserButton2">
+              <object class="GtkFileChooserButton" id="saveFolderStep4ChooserButton">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="action">select-folder</property>
+                <signal name="file-set" handler="on_saveFolderStep4ChooserButton_file_set" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1904,6 +1906,7 @@ Consult the manual for help.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_saveButton_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -1912,12 +1915,13 @@ Consult the manual for help.</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button2">
+              <object class="GtkButton" id="backToStep3Button">
                 <property name="label" translatable="yes">Return to previous steps</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_backToStep3Button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -2036,7 +2040,7 @@ Consult the manual for help.</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label39">
+                      <object class="GtkLabel" id="finalSelectedGenesLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Selected genes :</property>
@@ -2069,36 +2073,37 @@ Consult the manual for help.</property>
                           <object class="GtkHPaned" id="hpaned5">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="position">375</property>
-                            <property name="position_set">True</property>
                             <child>
                               <object class="GtkDrawingArea" id="PCAFinalArea">
+                                <property name="width_request">2</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                               </object>
                               <packing>
-                                <property name="resize">False</property>
+                                <property name="resize">True</property>
                                 <property name="shrink">True</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkVPaned" id="vpaned2">
+                                <property name="width_request">1</property>
+                                <property name="height_request">1</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="position">200</property>
-                                <property name="position_set">True</property>
                                 <child>
                                   <object class="GtkDrawingArea" id="finalClusteringArea">
+                                    <property name="height_request">1</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                   </object>
                                   <packing>
-                                    <property name="resize">False</property>
+                                    <property name="resize">True</property>
                                     <property name="shrink">True</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkDrawingArea" id="finalEigenArea">
+                                    <property name="height_request">1</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                   </object>
@@ -2177,11 +2182,5 @@ Consult the manual for help.</property>
     <property name="upper">1</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">0.20000000000000001</property>
-  </object>
-  <object class="GtkWindow" id="window1">
-    <property name="can_focus">False</property>
-    <child>
-      <placeholder/>
-    </child>
   </object>
 </interface>

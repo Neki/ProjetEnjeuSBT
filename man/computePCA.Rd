@@ -12,7 +12,7 @@
   an object of type \code{prcomp}
 }
 \description{
-  This is merely a wrapper of \code{\link{prcomp}}
+  This is merely a wrapper around \code{\link{prcomp}}
 }
 \seealso{
   \code{\link{handlePCAComboBoxes}}, \code{\link{drawPCA}}

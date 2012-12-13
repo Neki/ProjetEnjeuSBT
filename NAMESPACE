@@ -1,3 +1,4 @@
+export(configureRefinementWindow)
 export(genesSelectorGUI)
 exportPattern("_")
 import(cairoDevice)

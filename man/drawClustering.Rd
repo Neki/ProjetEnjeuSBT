@@ -24,7 +24,7 @@
   This function is able to compute clustering and plot the
   results on a widget or in a file. It uses euclidean
   distances and the Ward method. Supported file formats are
-  .svg and .tiff. If another extension is deteced, then the
-  function will return an error.
+  .svg and .tiff. If another extension is detected, then
+  the function will raise an error.
 }
 

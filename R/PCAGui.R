@@ -74,8 +74,8 @@ drawPCA <- function(PCx, PCy, PCdata, Veclabels, drawingArea, printToFile = FALS
 					col = colVec
 			)
 			text(PCdata$x[,PCx], PCdata$x[,PCy], labels=Veclabels, cex=0.9, pos=4, col="black")
-			return(TRUE)
 			dev.off()
+			return(TRUE)			
 		} else if(ext== "svg") {
 			svg(filename=drawingArea)
 			par(mar=c(5,5,0.2,0.2))
@@ -88,8 +88,8 @@ drawPCA <- function(PCx, PCy, PCdata, Veclabels, drawingArea, printToFile = FALS
 					col = colVec
 			)
 			text(PCdata$x[,PCx], PCdata$x[,PCy], labels=Veclabels, cex=0.9, pos=4, col="black")
-			return(TRUE)
 			dev.off()
+			return(TRUE)			
 		} else {stop("Unrecognized file extension (only tiff and svg are supported)")}
 	} else {
 		changeCairoDevice(drawingArea)

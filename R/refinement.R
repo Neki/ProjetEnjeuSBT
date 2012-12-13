@@ -1,8 +1,18 @@
 on_refineButton_clicked <- function(widget) {
-	configureRefinementWindow()	
+	setCurrentStep(4)
 	widgets$refinementWindow$show()
 	widgets$intersectsWindow$hide()
-	setCurrentStep(4)
+	configureRefinementWindow() # Must be done after the window is visible, otherwise plotting to GtkDrawingArea will have indetermined behaviour
+}
+
+on_backToStep3Button_clicked <- function(widget) {
+	setCurrentStep(3)
+	widgets$refinementWindow$hide()
+	widgets$intersectsWindow$show()	
+}
+
+on_saveFolderStep4ChooserButton_file_set <- function(widget) {
+	widgets$saveFolderChooserButton$setFilename(widgets$saveFolderStep4ChooserButton$getFilename())
 }
 
 # Side effect : write in correlationLimits and finalData
@@ -24,10 +34,14 @@ configureRefinementWindow <- function() {
 	widgets$datasetNameLabel2$setText(paste("Dataset:",widgets$dataFileChooserButton$getFilename()))
 	
 	# Initial PCA and clustering
-	finalData <<- selectedData
-	widgets$finalSelectedGenesLabel$setText(paste(nrow(finalData), "genes selected"))
-	drawClustering(finalData[,-1], widgets$finalClusteringArea, FALSE)
-	drawEigenValues(PCAfinalData, widgets$finalEigenArea, FALSE)
+	# IF THERE ARE PROBLEMS CHECK THIS *************************************************
+	# And now a dirty hack
+	# If I omit the next line, I get an error "plot.new() : margins too large"
+	# I suspect that RGtk2 does some poor multithreading and that the next window is still not visible when I call changeCairoDevice()
+	# which results in weird behaviour in drawing area handling
+	# Oh, and checking wether widgets$finalEigenArea is visible before processing does not work
+	Sys.sleep(0.2)
+	on_finalUpdateButton_clicked(NULL)
 }
 
 addCorellationLimiter <- function(PCi) {
@@ -79,8 +93,11 @@ computeFinalPCA <- function() {
 
 on_finalUpdateButton_clicked <- function(widget) {
 	PCAfinalData <<- computeFinalPCA()
+	# debugonce(updateFinalPCA)
 	updateFinalPCA(widget) # Draw the PCA plot
 	drawClustering(finalData[,-1], widgets$finalClusteringArea, FALSE)
+	
 	drawEigenValues(PCAfinalData, widgets$finalEigenArea, FALSE)
 	widgets$finalSelectedGenesLabel$setText(paste(nrow(finalData), "genes selected"))
+	setCurrentStep(5)
 }

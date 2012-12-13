@@ -20,58 +20,90 @@
 #' 	
 #' @param saveFolder the path to the folder which will contain the results.
 saveResults <- function(saveFolder) {
-	# TODO : add a global variable to keep track of the current step, to chage what to save accordingly
-	# Currently, everything, including null data, is saved, and this may raise errors
 	sepCharacter <- widgets$colEntry$getText()
 	decCharacter <- widgets$decEntry$getText()
 	
-	unlink(file.path(saveFolder, "step1"), recursive = TRUE)	
-	dir.create(file.path(saveFolder, "step1"))	
-	# Saving genesUp.txt
-	file = file.path(saveFolder, "step1", "genesUp.csv")
-	for(i in 1:length(genesUp)) {
-		y <- genesUp[[i]]
-		write(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc."),
-				file = file, append = TRUE)
-		write(paste(y, baseData[y,1], sep = sepCharacter), file = file, append = TRUE)		
+	# Step 1
+	if (currentStep >= 2) { # If we are at step 2, step 1 is finished
+		unlink(file.path(saveFolder, "step1"), recursive = TRUE)	
+		dir.create(file.path(saveFolder, "step1"))
+		
+		# Saving genesUp.txt		
+		for(i in 1:length(genesUp)) {
+			serie = paste(i, names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc", sep ="_")
+			file = file.path(saveFolder, "step1", paste0("up", serie, ".csv"))
+			y <- genesUp[[i]]
+			write(paste(y, baseData[y,1], sep = sepCharacter), file = file)		
+		}
+		
+		# Saving genesDown.txt
+		for(i in 1:length(genesUp)) {
+			serie = paste(i, names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc", sep ="_")
+			file = file.path(saveFolder, "step1", paste0("down", serie, ".csv"))
+			y <- genesDown[[i]]
+			write(paste(y, baseData[y,1], sep = sepCharacter), file = file)		
+		}
+		
+		file = file.path(saveFolder, "step1", "selectionCriteria.txt")
+		write(paste("Up : fold between",foldUpMin,"and", foldUpMax,"\n Down : fold between",
+						foldDownMin,"and",foldDownMax))
+		
+		drawVennDiagrams(widget = NULL, fileUp = file.path(saveFolder, "step1", "vennDiagramUp.tiff"),
+						fileDown = file.path(saveFolder, "step1", "vennDiagramDown.tiff"))
 	}
 	
-	# Saving genesDown.txt
-	file = file.path(saveFolder, "step1", "genesDown.csv")
-	for(i in 1:length(genesDown)) {
-		y <- genesDown[[i]]
-		write(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc."),
-				file = file, append = TRUE)
-		write(paste(y, baseData[y,1], sep = sepCharacter), file = file, append = TRUE)		
-	}
 	
 	# Step 2
-	file = file.path(saveFolder, "step1", "selectionCriteria.txt")
-	write(paste("Up : fold between",foldUpMin,"and", foldUpMax,"\n Down : fold between",
-					foldDownMin,"and",foldDownMax))
-
-	drawVennDiagram(widget = NULL, fileUp = file.path(saveFolder, "step1", "vennDiagramUp.tiff",
-					fileDown = file.path(saveFolder, "step1", "vennDiagramDown.tiff")))
+	if (currentStep >= 3) {
+		unlink(file.path(saveFolder, "step2"), recursive = TRUE)	
+		dir.create(file.path(saveFolder, "step2"))	
+		file = file.path(saveFolder, "step2", "selectedGenes.csv")
+		write.csv(selectedData, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+	}
 		
-	file = file.path(saveFolder, "step2", "selectedGenes.csv")
-	write.csv(selectedData[1,], file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE, row.names = TRUE)
-	
 	# Step 3
-	file = file.path(saveFolder, "step3", "PCA.tiff")
-	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file)
-	file = file.path(saveFolder, "step3", "PCA.svg")
-	drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file)
-	
-	file = file.path(saveFolder, "step3", "eigenValues.tiff")
-	drawEigenValues(PCAdata, file)
-	file = file.path(saveFolder, "step3", "clustering.tiff")
-	drawClustering(selectedData[,-1], file)
-	
-	file = file.path(saveFolder, "step3", "components.txt")
-	capture.output(summary(PCAdata), file=file)
+	if (currentStep >= 3) { # this is not a mistake
+		unlink(file.path(saveFolder, "step3"), recursive = TRUE)	
+		dir.create(file.path(saveFolder, "step3"))	
+		file = file.path(saveFolder, "step3", "PCA.tiff")
+		drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file, printToFile = TRUE)
+		file = file.path(saveFolder, "step3", "PCA.svg")
+		drawPCA(widgets$PC1ComboBox$getActive()+1, widgets$PC2ComboBox$getActive()+1, PCAdata, names(selectedData[,-1]), file, printToFile = TRUE)
+		
+		file = file.path(saveFolder, "step3", "eigenValues.tiff")
+		drawEigenValues(PCAdata, file, printToFile = TRUE)
+		file = file.path(saveFolder, "step3", "clustering.tiff")
+		drawClustering(selectedData[,-1], file, printToFile = TRUE)
+		
+		file = file.path(saveFolder, "step3", "components.txt")
+		capture.output(summary(PCAdata), file=file)
+		
+		file = file.path(saveFolder, "step3", "correlationMatrix.csv")
+		correl = t(t(PCAdata$rotation)*PCAdata$sdev) # Correlation matrix
+		write.csv(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+	}
 	
 	# Step 4
-	# TODO : finish
+	if (currentStep >= 5) {
+		unlink(file.path(saveFolder, "step4"), recursive = TRUE)	
+		dir.create(file.path(saveFolder, "step4"))	
+		file = file.path(saveFolder, "step4", "PCA.tiff")
+		drawPCA(widgets$PC1FinalComboBox$getActive()+1, widgets$PC2FinalComboBox$getActive()+1, PCAfinalData, names(selectedData[,-1]), file, printToFile = TRUE)
+		file = file.path(saveFolder, "step4", "PCA.svg")
+		drawPCA(widgets$PC1FinalComboBox$getActive()+1, widgets$PC2FinalComboBox$getActive()+1, PCAfinalData, names(selectedData[,-1]), file, printToFile = TRUE)
+		
+		file = file.path(saveFolder, "step4", "eigenValues.tiff")
+		drawEigenValues(PCAfinalData, file, printToFile = TRUE)
+		file = file.path(saveFolder, "step4", "clustering.tiff")
+		drawClustering(finalData[,-1], file, printToFile = TRUE)
+		
+		file = file.path(saveFolder, "step4", "components.txt")
+		capture.output(summary(PCAfinalData), file=file)
+		
+		file = file.path(saveFolder, "step4", "correlationMatrix.txt")
+		correl = t(t(PCAfinalData$rotation)*PCAfinalData$sdev) # Correlation matrix
+		write.csv(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+	}
 }
 	
 on_saveButton_clicked <- function(widget) {	

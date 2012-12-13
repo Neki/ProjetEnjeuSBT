@@ -16,7 +16,7 @@
   \item{fileDown}{same principle for the "down diagram"}
 }
 \description{
-  This function uses global variables (#TODO : fix that)
-  but does not write in global variables
+  This function uses global variables but does not write in
+  global variables
 }
 

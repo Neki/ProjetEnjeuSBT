@@ -46,7 +46,7 @@ NULL
 #' @keywords GUI, gene, selection
 #' @export
 genesSelectorGUI <- function() {
-	
+	# debug(drawClustering)
 	require(VennDiagram, quietly = TRUE) # Workaround to avoid a "error in as.environment(pos)"
 	widgets <<- initWidgets()
 	init()
