@@ -37,3 +37,16 @@ configureDataInformation <- function() {
 on_continueInfoButton_clicked <- function(widget) {
 	widgets$datasetInformationWindow$hide()
 }
+
+on_changeDatasetButton_clicked <- function(widget) {
+	init()
+	widgets$datasetInformationWindow$hide()
+	widgets$intersectsWindow$hide()	
+	widgets <<- initWidgets()
+	gSignalConnect(widgets$PC1ComboBox, "changed", updatePCA)
+	gSignalConnect(widgets$PC2ComboBox, "changed", updatePCA)
+	gSignalConnect(widgets$PC1DataComboBox, "changed", updateInitialPCA)
+	gSignalConnect(widgets$PC2DataComboBox, "changed", updateInitialPCA)
+	widgets$loadFileWindow$show()	
+	setCurrentStep(0)
+}

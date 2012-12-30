@@ -636,12 +636,13 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="changeDatasetButton">
                 <property name="label" translatable="yes">Change dataset</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_changeDatasetButton_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -88,6 +88,7 @@ on_confirmButton_clicked <- function(widget) {
 		widgets$fileInfoLabel$setText("Please set the number of replicates used.")
 	} else {
 		configureIntersectsWindow()
+		setCurrentStep(1)
 		widgets$loadFileWindow$hide()
 		widgets$intersectsWindow$show()
 		configureCustomListsWindow()

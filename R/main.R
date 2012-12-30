@@ -1,6 +1,6 @@
 #' A GUI to facilitate gene selection based on p-value and folds criteria from DNA chip experiments
 #' 
-#' Using pre-processed DNA chip data, this package enable the user to
+#' Using pre-processed DNA chip data, this package enables the user to
 #' use a GUI to select genes. Base criteria include fold & p-value. Consult
 #' the pdf help document for details.
 #' 
@@ -46,7 +46,6 @@ NULL
 #' @keywords GUI, gene, selection
 #' @export
 genesSelectorGUI <- function() {
-	# debug(drawClustering)
 	require(VennDiagram, quietly = TRUE) # Workaround to avoid a "error in as.environment(pos)"
 	widgets <<- initWidgets()
 	init()
