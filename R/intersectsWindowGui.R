@@ -219,15 +219,18 @@ setCurrentStep <- function(step) {
 	if (step == 1) {
 		widgets$intersectFrame$setSensitive(FALSE)
 		widgets$PCAFrame$setSensitive(FALSE)
+		widgets$vennDiagramsFrame$setSensitive(FALSE)
 		# TODO : finish
 	}
 	else if (step == 2) {
 		widgets$PCAFrame$setSensitive(FALSE)
 		widgets$intersectFrame$setSensitive(TRUE)
+		widgets$vennDiagramsFrame$setSensitive(TRUE)
 	}
 	else if (step == 3) {
 		widgets$PCAFrame$setSensitive(TRUE)
 		widgets$intersectFrame$setSensitive(TRUE)
+		widgets$vennDiagramsFrame$setSensitive(TRUE)
 	}
 	currentStep <<- step
 }

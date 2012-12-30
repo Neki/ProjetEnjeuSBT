@@ -66,6 +66,7 @@ initWidgets <- function() {
 	widgets$option4RadioButton <- builder$getObject("option4RadioButton")
 	widgets$nbGroupsSpinButton <- builder$getObject("nbGroupsSpinButton")
 	#widgets$customListsWindow <- builder$getObject("customListsWindow")
+	widgets$vennDiagramsFrame <- builder$getObject("vennDiagramsFrame")
 	
 	widgets$tableAlignment <- builder$getObject("tableAlignment")
 	#widgets$optionTable <- builder$getObject("optionTable")
