@@ -58,28 +58,6 @@ configureIntersectsWindow <- function() {
 	widgets$option3RadioButton$setSensitive(nbExperiments==3)
 }
 
-configureCustomListsWindow <- function() {
-	# Configuring custom lists window according to dataset
-	# gtkTableGetChildren() returns a list of objects which have for only type "GtkTableChild" so it is not possible to retrieve the state of the GtkCheckButtons
-	# Workaround : using a global dataframe which update each time a check button is toggled, and connecting appropriate signals  
-	widgets$optionTable$resize(rows = nbExperiments + 2, columns = 5)
-	for (i in 1:nbExperiments) {
-		widgets$optionTable$attachDefaults(gtkLabelNew(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), 0, 1, i+1, i+2)
-		button <- gtkCheckButtonNew()
-		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 1))
-		widgets$optionTable$attachDefaults(button, 1, 2, i+1, i+2)
-		button <- gtkCheckButtonNew()
-		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 2))
-		widgets$optionTable$attachDefaults(button, 2, 3, i+1, i+2)
-		button <- gtkCheckButtonNew()
-		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 3))
-		widgets$optionTable$attachDefaults(button, 3, 4, i+1, i+2)
-		button <- gtkCheckButtonNew()
-		gSignalConnect(button, 'toggled', updateButtonsState, c(i,4))
-		widgets$optionTable$attachDefaults(button, 4, 5, i+1, i+2)
-	}
-	buttonState <<- array(data = FALSE, dim = c(nbExperiments, 4))
-}
 
 on_confirmButton_clicked <- function(widget) {
 	if (is.null(baseData)) {
@@ -91,8 +69,8 @@ on_confirmButton_clicked <- function(widget) {
 		setCurrentStep(1)
 		widgets$loadFileWindow$hide()
 		widgets$intersectsWindow$show()
-		configureCustomListsWindow()
+		# configureCustomListsWindow() # now done when the user asks for this window
 		# Configuring data information window
-		configureDataInformation()
+		# configureDataInformation()
 	}
 }

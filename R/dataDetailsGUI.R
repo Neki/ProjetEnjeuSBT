@@ -3,6 +3,32 @@
 
 # Side effect : write in PCAinitialData
 on_dataButton_clicked <- function(widget) {
+	# Create the window
+	builder <- retrieveBuilder()
+	widgets$datasetInformationWindow <- builder$getObject("datasetInformationWindow")
+	widgets$fileNameLabel <- builder$getObject("fileNameLabel")
+	widgets$locationLabel <- builder$getObject("locationLabel")
+	widgets$genesInfoLabel <- builder$getObject("genesInfoLabel")
+	widgets$expInfoLabel <- builder$getObject("expInfoLabel")
+	widgets$samplesInfoLabel <- builder$getObject("samplesInfoLabel")
+	widgets$samplesNamesLabel <- builder$getObject("samplesNamesLabel")
+	widgets$repInfoLabel <- builder$getObject("repInfoLabel")
+	
+	widgets$PC1DataComboBox <- gtkComboBoxNewText()
+	widgets$PC2DataComboBox <- gtkComboBoxNewText()
+	widgets$dataPCChooserHBox$packStart(widgets$PC1DataComboBox, FALSE)
+	widgets$dataPCChooserHBox$reorderChild(widgets$PC1DataComboBox, 1)
+	widgets$dataPCChooserHBox$packStart(widgets$PC2DataComboBox, FALSE)
+	widgets$dataPCChooserHBox$reorderChild(widgets$PC2DataComboBox, 3)
+	
+	widgets$eigenInitialDrawingArea <- builder$getObject("eigenInitialDrawingArea")
+	widgets$clusteringInitialDrawingArea <- builder$getObject("clusteringInitialDrawingArea")
+	widgets$PCADataArea <- builder$getObject("PCADataArea")
+	
+
+	
+	configureDataInformation()
+	
 	columns <- c()
 	for(i in 1:nbExperiments) {
 		columns <- c(columns, i* (nbReplicats * 2 + 2) , i*(nbReplicats*2+2) + 1 )
@@ -14,7 +40,10 @@ on_dataButton_clicked <- function(widget) {
 	drawEigenValues(PCAinitialData, widgets$eigenInitialDrawingArea)
 	drawClustering(baseData[,-c(1, columns)], widgets$clusteringInitialDrawingArea)
 	
+	gSignalConnect(widgets$PC1DataComboBox, "changed", updateInitialPCA)
+	gSignalConnect(widgets$PC2DataComboBox, "changed", updateInitialPCA)
 	
+	builder$connectSignals()
 }
 
 configureDataInformation <- function() {
@@ -35,7 +64,7 @@ configureDataInformation <- function() {
 }
 
 on_continueInfoButton_clicked <- function(widget) {
-	widgets$datasetInformationWindow$hide()
+	widgets$datasetInformationWindow$destroy()
 }
 
 on_changeDatasetButton_clicked <- function(widget) {

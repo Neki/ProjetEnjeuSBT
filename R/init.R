@@ -28,12 +28,16 @@ init <- function() {
 	currentStep <<- 0
 }
 
+retrieveBuilder <- function() {
+	builder <- gtkBuilderNew()
+	builder$addFromFile(file.path(path.package("genesSelector"), "extdata/gui.glade") )
+	return(builder)
+}
+
 initWidgets <- function() {	
 	
 	# Creating a GtkBuilder from which we will be able to retrieve the necesary GUI elements 
-	builder <- gtkBuilderNew()
-	
-	builder$addFromFile(file.path(path.package("genesSelector"), "extdata/gui.glade") )
+	builder <- retrieveBuilder()
 	
 	widgets <- new.env()
 	widgets$loadFileWindow <- builder$getObject("loadFileWindow")
@@ -61,33 +65,26 @@ initWidgets <- function() {
 	widgets$option2RadioButton <- builder$getObject("option2RadioButton")
 	widgets$option4RadioButton <- builder$getObject("option4RadioButton")
 	widgets$nbGroupsSpinButton <- builder$getObject("nbGroupsSpinButton")
-	widgets$customListsWindow <- builder$getObject("customListsWindow")
-	widgets$listNameEntry  <- builder$getObject("listNameEntry")
+	#widgets$customListsWindow <- builder$getObject("customListsWindow")
+	
 	widgets$tableAlignment <- builder$getObject("tableAlignment")
-	widgets$optionTable <- builder$getObject("optionTable")
-	widgets$listsScrolledWindow <- builder$getObject("listsScrolledWindow")
+	#widgets$optionTable <- builder$getObject("optionTable")
+	
 	widgets$intersectFrame <- builder$getObject("intersectFrame")
 	widgets$PCAFrame <- builder$getObject("PCAFrame")
 	widgets$PCChooserHBox <- builder$getObject("PCChooserHBox")
 	widgets$PCAArea  <- builder$getObject("PCAArea") # naming convention changed due to a glitch in Glade
 #widgets$PCAArea2 <- builder$getObject("PCAArea2")
 	widgets$PCChooserHBox <- builder$getObject("PCChooserHBox")
-	widgets$playwithButton <- builder$getObject("playwithButton")
 	widgets$eigenDrawingArea <- builder$getObject("eigenDrawingArea")
 	widgets$clusteringDrawingArea <- builder$getObject("clusteringDrawingArea")
 	widgets$selectedGenesLabel <- builder$getObject("selectedGenesLabel")
-	widgets$fileNameLabel <- builder$getObject("fileNameLabel")
-	widgets$locationLabel <- builder$getObject("locationLabel")
-	widgets$genesInfoLabel <- builder$getObject("genesInfoLabel")
-	widgets$expInfoLabel <- builder$getObject("expInfoLabel")
-	widgets$samplesInfoLabel <- builder$getObject("samplesInfoLabel")
-	widgets$repInfoLabel <- builder$getObject("repInfoLabel")
-	widgets$samplesNamesLabel <- builder$getObject("samplesNamesLabel")
+	
+	
 	widgets$dataPCChooserHBox <- builder$getObject("dataPCChooserHBox")
-	widgets$PCADataArea <- builder$getObject("PCADataArea")
-	widgets$datasetInformationWindow <- builder$getObject("datasetInformationWindow")
-	widgets$eigenInitialDrawingArea <- builder$getObject("eigenInitialDrawingArea")
-	widgets$clusteringInitialDrawingArea <- builder$getObject("clusteringInitialDrawingArea")
+	
+	#widgets$datasetInformationWindow <- builder$getObject("datasetInformationWindow")
+	
 	widgets$upDrawingArea <- builder$getObject("upDrawingArea") 
 	widgets$downDrawingArea <- builder$getObject("downDrawingArea")
 	widgets$saveFolderChooserButton <- builder$getObject("saveFolderChooserButton")
@@ -112,12 +109,7 @@ initWidgets <- function() {
 	widgets$PCChooserHBox$packStart(widgets$PC2ComboBox, FALSE)
 	widgets$PCChooserHBox$reorderChild(widgets$PC2ComboBox, 3)
 	
-	widgets$PC1DataComboBox <- gtkComboBoxNewText()
-	widgets$PC2DataComboBox <- gtkComboBoxNewText()
-	widgets$dataPCChooserHBox$packStart(widgets$PC1DataComboBox, FALSE)
-	widgets$dataPCChooserHBox$reorderChild(widgets$PC1DataComboBox, 1)
-	widgets$dataPCChooserHBox$packStart(widgets$PC2DataComboBox, FALSE)
-	widgets$dataPCChooserHBox$reorderChild(widgets$PC2DataComboBox, 3)
+	
 	
 	widgets$PC1FinalComboBox <- gtkComboBoxNewText()
 	widgets$PC2FinalComboBox <- gtkComboBoxNewText()
