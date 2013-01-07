@@ -1846,8 +1846,8 @@ Consult the manual for help.</property>
   <object class="GtkAdjustment" id="pvalueAdjustement">
     <property name="upper">1</property>
     <property name="value">0.059999999999999998</property>
-    <property name="step_increment">0.050000000000000003</property>
-    <property name="page_increment">0.20000000000000001</property>
+    <property name="step_increment">0.01</property>
+    <property name="page_increment">0.029999999999999999</property>
   </object>
   <object class="GtkWindow" id="refinementWindow">
     <property name="can_focus">False</property>
@@ -1891,7 +1891,6 @@ Consult the manual for help.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="action">select-folder</property>
-                <signal name="file-set" handler="on_saveFolderStep4ChooserButton_file_set" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1906,7 +1905,7 @@ Consult the manual for help.</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <signal name="clicked" handler="on_saveButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_saveButton1_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>

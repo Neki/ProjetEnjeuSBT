@@ -28,6 +28,9 @@ saveResults <- function(saveFolder) {
 		unlink(file.path(saveFolder, "step1"), recursive = TRUE)	
 		dir.create(file.path(saveFolder, "step1"))
 		
+		file = file.path(saveFolder, "step1", "criteria.txt")
+		write(buildCriteriaString(), file = file)
+		
 		# Saving genesUp.txt		
 		for(i in 1:length(genesUp)) {
 			serie = paste(i, names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc", sep ="_")
@@ -87,6 +90,10 @@ saveResults <- function(saveFolder) {
 	if (currentStep >= 5) {
 		unlink(file.path(saveFolder, "step4"), recursive = TRUE)	
 		dir.create(file.path(saveFolder, "step4"))	
+		
+		file = file.path(saveFolder, "step4", "correlation_limits.txt")
+		write(buildLimitersString(), file = file)		
+		
 		file = file.path(saveFolder, "step4", "PCA.tiff")
 		drawPCA(widgets$PC1FinalComboBox$getActive()+1, widgets$PC2FinalComboBox$getActive()+1, PCAfinalData, names(selectedData[,-1]), file, printToFile = TRUE)
 		file = file.path(saveFolder, "step4", "PCA.svg")
@@ -105,8 +112,64 @@ saveResults <- function(saveFolder) {
 		write.csv(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
 	}
 }
+
+buildCriteriaString <- function() {
+	res = "Criteria used to define up or down genes\n\nUp : "
+	if(widgets$useUpperLimitButton$getActive()) {
+		res = paste0(res, "fold between ", foldUpMin, " and ", foldUpMax)
+	} else {
+		res = paste0(res, "fold greater than ", foldUpMin)
+	}
+	res = paste0(res, "\nDown : ")
+	if(widgets$useLowerLimitButton$getActive()) {
+		res = paste0(res, "fold between ", foldDownMin, " and ", foldDownMax)
+	} else {
+		res = paste0(res, "fold lower than ", foldDownMax)
+	}
+	res = paste0(res, "\n\np-value lower than ", pvalMax)
+	return(res)
+}
+
+buildLimitersString <- function() {
+	res = ""
+	nbPC <- ncol(PCAdata$rotation)
+	for(i in 1:nbPC) {
+		res = paste0(res, "|PC", i, "| between ")
+		res = paste0(res, getLimiterValue(i, 1), " and ", getLimiterValue(i, 2))
+		res = paste0(res, "\n")
+	}
+	return(res)
+}
+
+buildListsString <- function() {
+	res = "Criteria used to build the selected genes list\n\n"
+	if(widgets$option1RadioButton$getActive()) {
+		res = paste0(res, "Default\nA gene is selected if and only if:\nit is up in at least 2 groups; or\nit is down in at least two groups")
+	}
+	if(widgets$option2RadioButton$getActive()) {
+		x <- widgets$nbGroupsSpinButton$getValueAsInt()
+		res = paste0(res, "A gene is selected if and only if:\nit is up in at least ",x," groups; or\nit is down in at least ",x," groups")
+	}
+	if(widgets$option3RadioButton$getActive()) {
+		res = paste0(res, "Default + exclude divergent genes\n")
+		res = paste0(res, "A gene is selected if and only if:\n")
+		res = paste0(res, "it is up in at least 2 groups; or\nit is down in at least two groups")
+		res = paste0(res, "but not if it is up in 2 groups and down in the third one\n")
+		res = paste0(res, "and not if it is down in two groups but up in the third one.")
+	}
+	if(widgets$option4RadioButton$getActive()) {
+		res = paste0(res, "Custom lists used")
+	}
+
+	return(res)
+}
 	
 on_saveButton_clicked <- function(widget) {	
 	saveFolder <- widgets$saveFolderChooserButton$getFilename() # Retrieve folder to save in
+	saveResults(saveFolder)
+}
+
+on_saveButton1_clicked <- function(widget) {	
+	saveFolder <- widgets$saveFolderStep4ChooserButton$getFilename() # Retrieve folder to save in
 	saveResults(saveFolder)
 }

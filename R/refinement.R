@@ -11,10 +11,6 @@ on_backToStep3Button_clicked <- function(widget) {
 	widgets$intersectsWindow$show()	
 }
 
-on_saveFolderStep4ChooserButton_file_set <- function(widget) {
-	widgets$saveFolderChooserButton$setFilename(widgets$saveFolderStep4ChooserButton$getFilename())
-}
-
 # Side effect : write in correlationLimits and finalData
 configureRefinementWindow <- function() {
 	# Let's remove any older child widget
