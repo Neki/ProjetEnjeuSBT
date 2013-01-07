@@ -22,6 +22,7 @@
 saveResults <- function(saveFolder) {
 	sepCharacter <- widgets$colEntry$getText()
 	decCharacter <- widgets$decEntry$getText()
+	print(sepCharacter)
 	
 	# Step 1
 	if (currentStep >= 2) { # If we are at step 2, step 1 is finished
@@ -61,7 +62,9 @@ saveResults <- function(saveFolder) {
 		unlink(file.path(saveFolder, "step2"), recursive = TRUE)	
 		dir.create(file.path(saveFolder, "step2"))	
 		file = file.path(saveFolder, "step2", "selectedGenes.csv")
-		write.csv(selectedData, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+		print(sepCharacter)
+		print(head(selectedData))
+		write.table(selectedData, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
 	}
 		
 	# Step 3
@@ -83,7 +86,7 @@ saveResults <- function(saveFolder) {
 		
 		file = file.path(saveFolder, "step3", "correlationMatrix.csv")
 		correl = t(t(PCAdata$rotation)*PCAdata$sdev) # Correlation matrix
-		write.csv(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+		write.table(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
 	}
 	
 	# Step 4
@@ -109,7 +112,7 @@ saveResults <- function(saveFolder) {
 		
 		file = file.path(saveFolder, "step4", "correlationMatrix.txt")
 		correl = t(t(PCAfinalData$rotation)*PCAfinalData$sdev) # Correlation matrix
-		write.csv(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
+		write.table(correl, file = file, sep = sepCharacter, dec = decCharacter, row.names = TRUE)
 	}
 }
 

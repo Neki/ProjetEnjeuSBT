@@ -461,6 +461,7 @@
             <property name="can_focus">True</property>
             <child>
               <object class="GtkFrame" id="frame7">
+                <property name="width_request">2</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label_xalign">0</property>
@@ -494,10 +495,12 @@
             </child>
             <child>
               <object class="GtkHPaned" id="hpaned4">
+                <property name="width_request">4</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <child>
                   <object class="GtkFrame" id="frame8">
+                    <property name="width_request">2</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
@@ -531,6 +534,7 @@
                 </child>
                 <child>
                   <object class="GtkFrame" id="frame9">
+                    <property name="width_request">1</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
@@ -632,12 +636,13 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="changeDatasetButton">
                 <property name="label" translatable="yes">Change dataset</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_changeDatasetButton_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1383,7 +1388,7 @@
             <property name="can_focus">True</property>
             <property name="position">400</property>
             <child>
-              <object class="GtkFrame" id="frame2">
+              <object class="GtkFrame" id="vennDiagramsFrame">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label_xalign">0</property>
@@ -1852,6 +1857,7 @@ Consult the manual for help.</property>
   <object class="GtkWindow" id="refinementWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Step 4 : refine selection using loadings</property>
+    <property name="window_position">center</property>
     <property name="default_width">800</property>
     <child>
       <object class="GtkVBox" id="vbox14">

@@ -1,6 +1,7 @@
 #' @include vennDiagrams.R
 #' @include PCAGui.R
 #' @include clustering.R
+#' @include init.R
 
 on_useUpperLimitButton_toggled <- function(widget) {
 	if(!widgets$useUpperLimitButton$getActive()) widgets$foldUpMaxSpinButton$setSensitive(FALSE)
@@ -120,13 +121,52 @@ on_intersectsButton_clicked <- function(widget) {
 	setCurrentStep(3)
 }
 
-on_customListsButton_clicked <- function(widget) {
-	widgets$customListsWindow$show()
+# This function need widgets$customListsWindow AND widgets$optionTable to be correctly defined
+# see how it is used in on_customListsButton_clicked
+configureCustomListsWindow <- function() {
+	# Configuring custom lists window according to dataset
+	# gtkTableGetChildren() returns a list of objects which have for only type "GtkTableChild" so it is not possible to retrieve the state of the GtkCheckButtons
+	# Workaround : using a global dataframe which update each time a check button is toggled, and connecting appropriate signals  
+	
+	widgets$optionTable$resize(rows = nbExperiments + 2, columns = 5)
+	for (i in 1:nbExperiments) {
+		widgets$optionTable$attachDefaults(gtkLabelNew(paste(i,":", names(baseData)[(i-1)*(nbReplicats*2+2) + 2], names(baseData)[(i-1)*(nbReplicats*2+2)+nbReplicats+2], "etc.")), 0, 1, i+1, i+2)
+		button <- gtkCheckButtonNew()
+		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 1))
+		widgets$optionTable$attachDefaults(button, 1, 2, i+1, i+2)
+		button <- gtkCheckButtonNew()
+		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 2))
+		widgets$optionTable$attachDefaults(button, 2, 3, i+1, i+2)
+		button <- gtkCheckButtonNew()
+		gSignalConnect(button, 'toggled', updateButtonsState,c(i, 3))
+		widgets$optionTable$attachDefaults(button, 3, 4, i+1, i+2)
+		button <- gtkCheckButtonNew()
+		gSignalConnect(button, 'toggled', updateButtonsState, c(i,4))
+		widgets$optionTable$attachDefaults(button, 4, 5, i+1, i+2)
+	}
+	buttonState <<- array(data = FALSE, dim = c(nbExperiments, 4))
 }
 
+on_customListsButton_clicked <- function(widget) {
+	# beware of issue #1 on github : hiding/showing windows is not a good way in RGtk2 to manage
+	# multiple windows ; because if the usre click on the rd X it will destroy the window
+	# and it wil be impossible to show it again after that
+	builder <- retrieveBuilder()
+	widgets$customListsWindow <- builder$getObject("customListsWindow")	
+	widgets$optionTable <- builder$getObject("optionTable")
+	widgets$listNameEntry  <- builder$getObject("listNameEntry")
+	widgets$listsScrolledWindow <- builder$getObject("listsScrolledWindow")
+	
+	configureCustomListsWindow()
+	widgets$customListsWindow$show()
+	
+	builder$connectSignals()
+}
+
+
+
 on_confirmListsButton_clicked <- function(widget) {
-	widgets$customListsWindow$hide()
-	# TODO : finish
+	widgets$customListsWindow$destroy()
 }
 
 updateButtonsState <- function(widget, a) {
@@ -179,15 +219,18 @@ setCurrentStep <- function(step) {
 	if (step == 1) {
 		widgets$intersectFrame$setSensitive(FALSE)
 		widgets$PCAFrame$setSensitive(FALSE)
+		widgets$vennDiagramsFrame$setSensitive(FALSE)
 		# TODO : finish
 	}
 	else if (step == 2) {
 		widgets$PCAFrame$setSensitive(FALSE)
 		widgets$intersectFrame$setSensitive(TRUE)
+		widgets$vennDiagramsFrame$setSensitive(TRUE)
 	}
 	else if (step == 3) {
 		widgets$PCAFrame$setSensitive(TRUE)
 		widgets$intersectFrame$setSensitive(TRUE)
+		widgets$vennDiagramsFrame$setSensitive(TRUE)
 	}
 	currentStep <<- step
 }
